@@ -26,4 +26,4 @@ def move25():
     fc.stop()
 
 if __name__ == '__main__':
-    mov25()
+    move25()
