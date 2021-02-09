@@ -25,5 +25,15 @@ def move25():
     speed4.deinit()
     fc.stop()
 
-if __name__ == '__main__':
+def navigate():
+    us = Ultrasonic(Pin('D8'), Pin('D9'))
+    dis_val = us.get_distance()
+    print("%smm"%dis_val)
+
     move25()
+
+    dis_val = us.get_distance()
+    print("%smm"%dis_val)
+
+if __name__ == '__main__':
+    navigate()
