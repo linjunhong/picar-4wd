@@ -14,7 +14,7 @@ def move25():
     speed4 = Speed(25)
     speed4.start()
 
-    fc.forward(100)
+    fc.forward(50)
     x = 0
     for i in range(1):
         time.sleep(0.1)
