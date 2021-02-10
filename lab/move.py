@@ -14,7 +14,7 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
-    fc.backword(10)
+    fc.backward(10)
     x = 0
     for i in range(5):
         time.sleep(0.1)
