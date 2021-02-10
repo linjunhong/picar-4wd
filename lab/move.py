@@ -14,6 +14,8 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
+    us = Ultrasonic(Pin('D8'), Pin('D9'))
+
     fc.backward(10)
     x = 0
     for i in range(5):
@@ -21,6 +23,10 @@ def move(direction, distance):
         speed = speed4()
         x += speed * 0.1
         print("%smm/s"%speed)
+
+        dis_val = us.get_distance()
+        print("%scm"%dis_val)
+
     print("%smm"%speed)
     speed4.deinit()
     fc.stop()
