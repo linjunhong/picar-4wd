@@ -14,6 +14,8 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
+    print("Travel Distance: %smm"%distance)
+
     i = 0
     distance_travelled = 0
     fc.backward(10)
@@ -21,6 +23,7 @@ def move(direction, distance):
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
         print("%smm"%distance_travelled)
+        print("i value %s"%i)
         i += 1
     
     speed4.deinit()
