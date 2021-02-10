@@ -16,13 +16,13 @@ def move(direction, distance):
 
     distance_travelled = 0
 
-    if key=='w':
+    if direction == 'w':
         fc.forward(10)
-    elif key=='a':
+    elif direction == 'a':
         fc.turn_left(10)
-    elif key=='s':
+    elif direction == 's':
         fc.backward(10)
-    elif key=='d':
+    elif direction == 'd':
         fc.turn_right(10)
     else:
         return
