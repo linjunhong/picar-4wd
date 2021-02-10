@@ -14,22 +14,16 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
-    us = Ultrasonic(Pin('D8'), Pin('D9'))
-
+    distance_travelled = 0
     fc.backward(10)
-    x = 0
-    for i in range(5):
+    while distance_travelled < distance:
         time.sleep(0.1)
-        speed = speed4()
-        x += speed * 0.1
-        print("%smm/s"%speed)
-
-        dis_val = us.get_distance()
-        print("%scm"%dis_val)
-
-    print("%smm"%speed)
+        distance_travelled += speed4() * 0.1
+    
     speed4.deinit()
     fc.stop()
+
+    print("%smm"%distance_travelled)
 
 def navigate():
     us = Ultrasonic(Pin('D8'), Pin('D9'))
@@ -42,7 +36,7 @@ def navigate():
 
         if (dis_val < 5):
             fc.stop()
-            move("backward", 10)
+            move("backward", 250)
             should_continue = False
 
 if __name__ == '__main__':
