@@ -14,12 +14,14 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
+    i = 0
     distance_travelled = 0
     fc.backward(10)
-    while distance_travelled < distance:
+    while distance_travelled < distance or i > 20:
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
         print("%smm"%distance_travelled)
+        i += 1
     
     speed4.deinit()
     fc.stop()
