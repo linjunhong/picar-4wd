@@ -16,17 +16,14 @@ def move(direction, distance):
 
     print("Travel Distance: %smm"%distance)
 
-    i = 0
     distance_travelled = 0
     fc.backward(10)
-    while distance_travelled < distance or i < 20:
+    while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
         print("%smm"%distance_travelled)
         print("i value %s"%i)
         print("eval 1: ", distance_travelled < distance )
-        print("eval 2: ", i < 20 )
-        i += 1
     
     speed4.deinit()
     fc.stop()
@@ -44,7 +41,7 @@ def navigate():
 
         if (dis_val < 5):
             fc.stop()
-            move("backward", 250)
+            move("backward", 25)
             should_continue = False
 
 if __name__ == '__main__':
