@@ -14,9 +14,19 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
-    print("Travel Distance: %smm"%distance)
-
     distance_travelled = 0
+
+    if key=='w':
+        fc.forward(10)
+    elif key=='a':
+        fc.turn_left(10)
+    elif key=='s':
+        fc.backward(10)
+    elif key=='d':
+        fc.turn_right(10)
+    else:
+        return
+
     fc.backward(10)
     while distance_travelled < distance:
         time.sleep(0.1)
@@ -40,7 +50,9 @@ def navigate():
 
         if (dis_val < 5):
             fc.stop()
-            move("backward", 25)
+            move("s", 25)
+            move("d", 25)
+            move("w", 25)
             should_continue = False
 
 if __name__ == '__main__':
