@@ -26,8 +26,7 @@ def move(direction, distance):
         fc.turn_right(10)
     else:
         return
-
-    fc.backward(10)
+        
     while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
