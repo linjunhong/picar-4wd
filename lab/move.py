@@ -10,13 +10,13 @@ from picar_4wd.filedb import FileDB
 from picar_4wd.utils import *
 import time
 
-def move25():
+def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
-    fc.forward(50)
+    fc.backword(10)
     x = 0
-    for i in range(1):
+    for i in range(5):
         time.sleep(0.1)
         speed = speed4()
         x += speed * 0.1
@@ -32,10 +32,11 @@ def navigate():
     while should_continue:
         fc.forward(10)
         dis_val = us.get_distance()
-        print("%smm"%dis_val)
+        print("%scm"%dis_val)
 
         if (dis_val < 5):
             fc.stop()
+            move("backward", 10)
             should_continue = False
 
 if __name__ == '__main__':
