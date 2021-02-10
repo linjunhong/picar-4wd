@@ -39,6 +39,7 @@ def move(direction, distance):
 
     print("%smm"%distance_travelled)
 
+
 def navigate():
     us = Ultrasonic(Pin('D8'), Pin('D9'))
 
@@ -50,8 +51,11 @@ def navigate():
 
         if (dis_val < 5):
             fc.stop()
+            print("Move backward")
             move("s", 25)
+            print("Trun right")
             move("d", 25)
+            print("Move forward")
             move("w", 25)
             should_continue = False
 
