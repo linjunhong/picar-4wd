@@ -34,7 +34,7 @@ def navigate():
         dis_val = us.get_distance()
         print("%smm"%dis_val)
 
-        if (dis_val < 100):
+        if (dis_val < 5):
             fc.stop()
             should_continue = False
 
