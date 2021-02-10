@@ -22,7 +22,6 @@ def move(direction, distance):
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
         print("%smm"%distance_travelled)
-        print("i value %s"%i)
         print("eval 1: ", distance_travelled < distance )
     
     speed4.deinit()
