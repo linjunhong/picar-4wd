@@ -27,13 +27,16 @@ def move25():
 
 def navigate():
     us = Ultrasonic(Pin('D8'), Pin('D9'))
-    dis_val = us.get_distance()
-    print("%smm"%dis_val)
 
-    move25()
+    should_continue = true
+    while should_continue:
+        fc.forward(10)
+        dis_val = us.get_distance()
+        print("%smm"%dis_val)
 
-    dis_val = us.get_distance()
-    print("%smm"%dis_val)
+        if (dis_val < 100):
+            fc.stop()
+            should_continue = false
 
 if __name__ == '__main__':
     navigate()
