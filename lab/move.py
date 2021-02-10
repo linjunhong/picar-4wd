@@ -26,7 +26,7 @@ def move(direction, distance):
         fc.turn_right(10)
     else:
         return
-        
+
     while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
@@ -51,11 +51,11 @@ def navigate():
         if (dis_val < 5):
             fc.stop()
             print("Move backward")
-            move('s', 25)
+            move('s', 15)
             print("Trun right")
-            move('d', 25)
+            move('d', 20)
             print("Move forward")
-            move('w', 25)
+            move('w', 30)
             should_continue = False
 
 if __name__ == '__main__':
