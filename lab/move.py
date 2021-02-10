@@ -52,11 +52,11 @@ def navigate():
         if (dis_val < 5):
             fc.stop()
             print("Move backward")
-            move("s", 25)
+            move('s', 25)
             print("Trun right")
-            move("d", 25)
+            move('d', 25)
             print("Move forward")
-            move("w", 25)
+            move('w', 25)
             should_continue = False
 
 if __name__ == '__main__':
