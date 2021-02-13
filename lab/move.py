@@ -85,7 +85,7 @@ def map_environment():
     # Reset servo
     fc.get_distance_at(0)
 
-    img = (environment, environment, environment)
+    img = cv2.merge((environment, environment, environment))
     print(img.shape())
     cv2.imwrite('color_img.jpg', img)
     cv2.imshow("image", img)
