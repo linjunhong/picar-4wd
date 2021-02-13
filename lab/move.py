@@ -67,7 +67,7 @@ def map_environment():
     environment = np.zeros((environment_size, environment_size))
 
     distance = 20
-    theta = -60
+    theta = math.radians(-60)
     x = int(x_offset + (distance * math.sin(theta)))
     y = int(distance * math.cos(theta))
 
