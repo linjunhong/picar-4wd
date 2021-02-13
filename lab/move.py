@@ -62,7 +62,7 @@ def navigate():
             should_continue = False
 
 def map_environment():
-    environment_size = 100
+    environment_size = 250
     environment = np.zeros((environment_size, environment_size))
 
     distance = 20
