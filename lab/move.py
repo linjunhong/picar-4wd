@@ -86,7 +86,7 @@ def map_environment():
     fc.get_distance_at(0)
 
     img = cv2.merge((environment, environment, environment))
-    print(img.shape
+    print(img.shape)
     cv2.imwrite('color_img.jpg', img)
     cv2.imshow("image", img)
 
