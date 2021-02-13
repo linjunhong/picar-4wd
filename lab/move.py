@@ -66,7 +66,7 @@ def map_environment():
     x_offset = environment_size / 2
     environment = np.zeros((environment_size, environment_size))
 
-    angles = [-90, -45, 0, 45, 90]
+    angles = [-180, -135, -90, -45, 0, 45, 90, 135, 180]
     for angle in angles:
         distance = fc.get_distance_at(angle)
         theta = math.radians(angle)
