@@ -68,7 +68,7 @@ def map_environment():
 
     distance = 20
     alpha = -60
-    x = int(environment_size + (x_offset * math.sin(alpha)))
+    x = int(x_offset + (distance * math.sin(alpha)))
     y = int(distance * math.cos(alpha))
 
     print("X: %s, Y: %s", x, y)
