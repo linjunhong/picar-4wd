@@ -66,17 +66,19 @@ def map_environment():
     x_offset = environment_size / 2
     environment = np.zeros((environment_size, environment_size))
 
-    distance = 20
-    theta = math.radians(-60)
-    x = int(x_offset + (distance * math.sin(theta)))
-    y = int(distance * math.cos(theta))
+    angles = [-90, -45, 0, 45, 90]
+    for angle in angles:
+        distance = get_distance_at(angle)
+        theta = math.radians(angle)
+        
+        x = int(x_offset + (distance * math.sin(theta)))
+        y = int(distance * math.cos(theta))
 
-    print("math.cos(theta): ", math.cos(theta))
-    print("distance * math.cos(theta): ", distance * math.cos(theta))
-    print("X: ", x)
-    print("Y: ", y)
-    environment[x, y] = 1
-
+        print("angle: ", angle)
+        print("distance: ", distance)
+        print("X: ", x)
+        print("Y: ", y)
+        environment[x, y] = 1
 
 if __name__ == '__main__':
     map_environment()
