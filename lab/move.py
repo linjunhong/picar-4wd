@@ -71,6 +71,8 @@ def map_environment():
     x = int(x_offset + (distance * math.sin(theta)))
     y = int(distance * math.cos(theta))
 
+    print("math.cos(theta): ", math.cos(theta))
+    print("distance * math.cos(theta): ", distance * math.cos(theta))
     print("X: ", x)
     print("Y: ", y)
     environment[x, y] = 1
