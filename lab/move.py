@@ -63,15 +63,16 @@ def navigate():
 
 def map_environment():
     environment_size = 250
+    x_offset = environment_size / 2
     environment = np.zeros((environment_size, environment_size))
 
     distance = 20
     alpha = -60
-    x = environment_size + (distance * math.sin(alpha))
-    y = distance * math.cos(alpha)
+    x = int(environment_size + (x_offset * math.sin(alpha)))
+    y = int(distance * math.cos(alpha))
 
     print("X: %s, Y: %s", x, y)
-    environment[int(x), int(y)] = 1
+    environment[x, y] = 1
 
 
 if __name__ == '__main__':
