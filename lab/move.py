@@ -1,3 +1,4 @@
+import cv2
 import math
 import time
 import numpy as np
@@ -12,8 +13,6 @@ from picar_4wd.ultrasonic import Ultrasonic
 from picar_4wd.speed import Speed
 from picar_4wd.filedb import FileDB  
 from picar_4wd.utils import *
-
-from PIL import Image
 
 def move(direction, distance):
     speed4 = Speed(25)
