@@ -1,3 +1,7 @@
+import math
+import time
+import numpy as np
+
 import picar_4wd as fc
 from picar_4wd.pwm import PWM
 from picar_4wd.adc import ADC
@@ -8,7 +12,6 @@ from picar_4wd.ultrasonic import Ultrasonic
 from picar_4wd.speed import Speed
 from picar_4wd.filedb import FileDB  
 from picar_4wd.utils import *
-import time
 
 def move(direction, distance):
     speed4 = Speed(25)
@@ -58,5 +61,18 @@ def navigate():
             move('w', 30)
             should_continue = False
 
+def map_environment():
+    environment_size = 100
+    environment = np.zeros((environment_size, environment_size))
+
+    distance = 20
+    alpha = -60
+    x = environment_size + (distance * math.sin(alpha))
+    y = distance * math.cos(alpha)
+
+    print("X: %s, Y: %s", x, y)
+    environment[x, y] = 1
+
+
 if __name__ == '__main__':
-    navigate()
+    map_environment()
