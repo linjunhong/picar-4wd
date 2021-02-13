@@ -71,7 +71,7 @@ def map_environment():
     angles = [-150, -135, -120, -105, -90, -75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150]
     for angle in angles:
         distance = fc.get_distance_at(angle)
-        if (distance != -2 or distance > 100):
+        if (distance != -2 or distance <= 100):
             theta = math.radians(angle)
             
             x = int(x_offset + (distance * math.sin(theta)))
