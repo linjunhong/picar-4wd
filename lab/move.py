@@ -81,7 +81,7 @@ def map_environment():
         environment[x, y] = 1
 
     # Reset servo
-    get_distance_at(0)
+    fc.get_distance_at(0)
 
 if __name__ == '__main__':
     map_environment()
