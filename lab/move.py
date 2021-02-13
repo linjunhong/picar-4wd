@@ -66,7 +66,7 @@ def map_environment():
     x_offset = environment_size / 2
     environment = np.zeros((environment_size, environment_size))
 
-    angles = [-180, -135, -90, -45, 0, 45, 90, 135, 180]
+    angles = [-90, -45, 0, 45, 90]
     for angle in angles:
         distance = fc.get_distance_at(angle)
         theta = math.radians(angle)
@@ -79,6 +79,9 @@ def map_environment():
         print("X: ", x)
         print("Y: ", y)
         environment[x, y] = 1
+
+    # Reset servo
+    get_distance_at(0)
 
 if __name__ == '__main__':
     map_environment()
