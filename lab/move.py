@@ -13,6 +13,8 @@ from picar_4wd.speed import Speed
 from picar_4wd.filedb import FileDB  
 from picar_4wd.utils import *
 
+from PIL import Image
+
 def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
@@ -83,6 +85,10 @@ def map_environment():
 
     # Reset servo
     fc.get_distance_at(0)
+
+    img = (data, data, data)
+    cv2.imwrite('color_img.jpg', img)
+    cv2.imshow("image", img)
 
 if __name__ == '__main__':
     map_environment()
