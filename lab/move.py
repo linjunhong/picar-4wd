@@ -67,11 +67,12 @@ def map_environment():
     environment = np.zeros((environment_size, environment_size))
 
     distance = 20
-    alpha = -60
+    theta = -60
     x = int(x_offset + (distance * math.sin(alpha)))
     y = int(distance * math.cos(alpha))
 
-    print("X: %s, Y: %s", x, y)
+    print("X: ", x)
+    print("Y: ", y)
     environment[x, y] = 1
 
 
