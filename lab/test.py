@@ -9,7 +9,7 @@ def get_distance_from_ultrasonic(angle):
 def main(argv):
     try:
       opts, args = getopt.getopt(argv,"f:p:")
-   except getopt.GetoptError:
+    except getopt.GetoptError:
       print 'test.py -f <function> -p <paramter>'
       sys.exit(2)
 
