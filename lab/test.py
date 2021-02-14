@@ -1,5 +1,6 @@
 import getopt
 import picar_4wd as fc
+import sys
 
 def get_distance_from_ultrasonic(angle):
     print("detecting distance at ", angle, " degree")
