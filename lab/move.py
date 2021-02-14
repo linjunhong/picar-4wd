@@ -81,7 +81,7 @@ def map_environment():
                 print("distance: ", distance)
                 print("X: ", x)
                 print("Y: ", y)
-                environment[x, y] = 0
+                environment[y, x] = 0
 
     # Reset servo
     fc.get_distance_at(0)
