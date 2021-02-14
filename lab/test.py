@@ -6,7 +6,7 @@ def get_distance_from_ultrasonic(angle):
     distance = fc.get_distance_at(angle)
     print("Object is ", distance, "cm away")
 
-def main():
+def main(argv):
     try:
       opts, args = getopt.getopt(argv,"f:p:")
    except getopt.GetoptError:
@@ -16,7 +16,7 @@ def main():
     for opt, arg in opts:
         if opt == "-f":
             test_function = arg
-        elif opt = "-p"
+        elif opt = "-p":
             paramter = arg
 
     if test_function == "ultrasonic":
