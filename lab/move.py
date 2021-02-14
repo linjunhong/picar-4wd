@@ -67,15 +67,16 @@ def map_environment():
     x_offset = environment_size / 2
     environment = np.full((environment_size, environment_size), 255)
 
-    angles = [60, 45, 30, 15, 0, -15, -30, -45, -60]
-    for angle in range(-60, 60, 5):
+    for angle in range(60, -60, -5):
         distance = fc.get_distance_at(angle)
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
+            # offset by one to fit into the environment
             x = int(x_offset + (distance * math.sin(theta))) - 1
             y = int(distance * math.cos(theta)) - 1
 
+            # make sure there is no point outside the environment
             if (x > 0 and x < environment_size and y > 0 and y < environment_size):
                 print("angle: ", angle)
                 print("distance: ", distance)
