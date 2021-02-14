@@ -68,7 +68,7 @@ def map_environment():
     environment = np.full((environment_size, environment_size), 255)
 
     angles = [60, 45, 30, 15, 0, -15, -30, -45, -60]
-    for angle in range(60, -60, 5):
+    for angle in range(-60, 60, 5):
         distance = fc.get_distance_at(angle)
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
