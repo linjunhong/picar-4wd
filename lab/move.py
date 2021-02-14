@@ -73,8 +73,8 @@ def map_environment():
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
-            x = int(x_offset + (distance * math.sin(theta)))
-            y = int(distance * math.cos(theta))
+            x = int(x_offset + (distance * math.sin(theta))) - 1
+            y = int(distance * math.cos(theta)) - 1
 
             print("angle: ", angle)
             print("distance: ", distance)
