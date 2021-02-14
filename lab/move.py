@@ -72,9 +72,9 @@ def map_environment():
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
-            # offset by one to fit into the environment
+            # offset by one to fit into the environment. For y, revert the coordinates as top is 0 in numpy
             x = int(x_offset + (distance * math.sin(theta))) - 1
-            y = int(distance * math.cos(theta)) - 1
+            y = environment_size - (int(distance * math.cos(theta)) - 1)
 
             # make sure there is no point outside the environment
             if (x > 0 and x < environment_size and y > 0 and y < environment_size):
