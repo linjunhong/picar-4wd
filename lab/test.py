@@ -10,7 +10,7 @@ def main(argv):
     try:
       opts, args = getopt.getopt(argv,"f:p:")
     except getopt.GetoptError:
-      print 'test.py -f <function> -p <paramter>'
+      print("test.py -f <function> -p <paramter>")
       sys.exit(2)
 
     for opt, arg in opts:
