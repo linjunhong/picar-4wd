@@ -65,7 +65,7 @@ def navigate():
 def map_environment():
     environment_size = 250
     x_offset = environment_size / 2
-    environment = np.zeros((environment_size, environment_size))
+    environment = np.full((environment_size, environment_size), 255)
 
     angles = [-150, -135, -120, -105, -90, -75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150]
     for angle in angles:
@@ -80,7 +80,7 @@ def map_environment():
             print("distance: ", distance)
             print("X: ", x)
             print("Y: ", y)
-            environment[x, y] = 1
+            environment[x, y] = 0
 
     # Reset servo
     fc.get_distance_at(0)
