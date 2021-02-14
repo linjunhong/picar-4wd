@@ -63,7 +63,7 @@ def navigate():
             should_continue = False
 
 def map_environment():
-    environment_size = 250
+    environment_size = 30
     x_offset = environment_size / 2
     environment = np.full((environment_size, environment_size), 255)
 
