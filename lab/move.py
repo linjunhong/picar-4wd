@@ -76,11 +76,12 @@ def map_environment():
             x = int(x_offset + (distance * math.sin(theta))) - 1
             y = int(distance * math.cos(theta)) - 1
 
-            print("angle: ", angle)
-            print("distance: ", distance)
-            print("X: ", x)
-            print("Y: ", y)
-            environment[x, y] = 0
+            if (x > 0 and x < environment_size and y > 0 and y < environment_size):
+                print("angle: ", angle)
+                print("distance: ", distance)
+                print("X: ", x)
+                print("Y: ", y)
+                environment[x, y] = 0
 
     # Reset servo
     fc.get_distance_at(0)
