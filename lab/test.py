@@ -16,7 +16,7 @@ def main(argv):
     for opt, arg in opts:
         if opt == "-f":
             test_function = arg
-        elif opt = "-p":
+        elif opt == "-p":
             paramter = arg
 
     if test_function == "ultrasonic":
