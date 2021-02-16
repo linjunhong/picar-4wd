@@ -134,7 +134,7 @@ def main():
     camera.start_preview()
     try:
       stream = io.BytesIO()
-      annotator = Annotator(camera)
+      #annotator = Annotator(camera)
       for _ in camera.capture_continuous(
           stream, format='jpeg', use_video_port=True):
         stream.seek(0)
@@ -146,10 +146,10 @@ def main():
 
         print("Elapsed time (ms): ", elapsed_ms)
         print_object_labels(results, labels)
-        annotator.clear()
-        annotate_objects(annotator, results, labels)
-        annotator.text([5, 0], '%.1fms' % (elapsed_ms))
-        annotator.update()
+        #annotator.clear()
+        #annotate_objects(annotator, results, labels)
+        #annotator.text([5, 0], '%.1fms' % (elapsed_ms))
+        #annotator.update()
 
         stream.seek(0)
         stream.truncate()
