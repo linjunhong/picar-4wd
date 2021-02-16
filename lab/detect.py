@@ -126,7 +126,7 @@ def main():
 
   with picamera.PiCamera(
       resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
-    camera.rotation(180)
+    camera.rotation = 180
     camera.start_preview()
     try:
       stream = io.BytesIO()
