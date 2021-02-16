@@ -124,8 +124,8 @@ def main():
   interpreter.allocate_tensors()
   _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
 
-  with picamera.(
-      resolution=(CAMPiCameraERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
+  with picamera.PiCamera(
+      resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
     camera.rotation(180)
     camera.start_preview()
     try:
