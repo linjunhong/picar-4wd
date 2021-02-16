@@ -103,6 +103,10 @@ def annotate_objects(annotator, results, labels):
     annotator.text([xmin, ymin],
                    '%s\n%.2f' % (labels[obj['class_id']], obj['score']))
 
+def print_object_labels(result, labels):
+    """Print object labels"""
+    for obj in results:
+        print("classid:", obj[class_id], "label:", labels[obj['class_id']], "scores:", obj['score'])
 
 def main():
   parser = argparse.ArgumentParser(
@@ -140,6 +144,8 @@ def main():
         results = detect_objects(interpreter, image, args.threshold)
         elapsed_ms = (time.monotonic() - start_time) * 1000
 
+        print("Elapsed time (ms): ", elapsed_ms)
+        print_object_labels(results, labels)
         annotator.clear()
         annotate_objects(annotator, results, labels)
         annotator.text([5, 0], '%.1fms' % (elapsed_ms))
