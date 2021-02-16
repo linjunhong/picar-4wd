@@ -103,7 +103,7 @@ def annotate_objects(annotator, results, labels):
     annotator.text([xmin, ymin],
                    '%s\n%.2f' % (labels[obj['class_id']], obj['score']))
 
-def print_object_labels(result, labels):
+def print_object_labels(results, labels):
     """Print object labels"""
     for obj in results:
         print("classid:", obj[class_id], "label:", labels[obj['class_id']], "scores:", obj['score'])
