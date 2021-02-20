@@ -36,13 +36,13 @@ def move(direction, distance):
     while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed4() * 0.1
-        print("%smm"%distance_travelled)
-        print("eval 1: ", distance_travelled < distance )
+        #print("%scm"%distance_travelled)
+        #print("eval 1: ", distance_travelled < distance )
     
     speed4.deinit()
     fc.stop()
 
-    print("%smm"%distance_travelled)
+    #print("%scm"%distance_travelled)
 
 
 def navigate():
@@ -52,9 +52,9 @@ def navigate():
     while should_continue:
         fc.forward(10)
         dis_val = us.get_distance()
-        print("%scm"%dis_val)
 
         if (dis_val < 10):
+            print(disval " cm from obstacle")
             fc.stop()
             print("Move backward")
             move('s', 15)
