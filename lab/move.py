@@ -72,12 +72,16 @@ def navigate():
         i += 1
 
 def map_environment():
-    environment_size = 30
+    environment_size = 100
     x_offset = environment_size / 2
     environment = np.full((environment_size, environment_size), 255)
 
-    for angle in range(60, -60, -5):
-        distance = fc.get_distance_at(angle)
+    for angle in range(70, -70, -5):
+        
+        distance_1 = fc.get_distance_at(angle)
+        distance_2 = fc.get_distance_at(angle)
+        distance = (distance_1 + distance_2) / 2
+        
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
