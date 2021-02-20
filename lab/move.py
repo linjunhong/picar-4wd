@@ -1,3 +1,5 @@
+import getopt
+import sys
 import cv2
 import math
 import time
@@ -52,15 +54,15 @@ def navigate():
         dis_val = us.get_distance()
         print("%scm"%dis_val)
 
-        if (dis_val < 5):
+        if (dis_val < 10):
             fc.stop()
             print("Move backward")
             move('s', 15)
             print("Trun right")
             move('d', 20)
-            print("Move forward")
-            move('w', 30)
-            should_continue = False
+            #print("Move forward")
+            #move('w', 30)
+            #should_continue = False
 
 def map_environment():
     environment_size = 30
@@ -92,5 +94,20 @@ def map_environment():
     cv2.imwrite('color_img.jpg', img)
     cv2.imshow("image", img)
 
+def main(argv):
+    try:
+      opts, args = getopt.getopt(argv,"nm")
+    except getopt.GetoptError:
+      print("test.py [-n|-m]")
+      sys.exit(2)
+
+    for opt, arg in opts:
+        if opt == "-n":
+            navigate()
+        elif opt == "-m":
+            map_environment()
+
+    return
+
 if __name__ == '__main__':
-    map_environment()
+    main(sys.argv[1:])
