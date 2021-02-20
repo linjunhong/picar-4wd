@@ -69,7 +69,7 @@ def navigate():
             print(dis_val, " cm from obstacle")
             i = 0
         
-        i++
+        i += 1
 
 def map_environment():
     environment_size = 30
