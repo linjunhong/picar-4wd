@@ -48,6 +48,7 @@ def move(direction, distance):
 def navigate():
     us = Ultrasonic(Pin('D8'), Pin('D9'))
 
+    i = 0
     should_continue = True
     while should_continue:
         fc.forward(10)
@@ -63,6 +64,11 @@ def navigate():
             #print("Move forward")
             #move('w', 30)
             #should_continue = False
+        elif (i > 10)
+            print(dis_val, " cm from obstacle")
+            i = 0
+        
+        i++
 
 def map_environment():
     environment_size = 30
