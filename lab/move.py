@@ -54,7 +54,7 @@ def navigate():
         dis_val = us.get_distance()
 
         if (dis_val < 10):
-            print(disval, " cm from obstacle")
+            print(dis_val, " cm from obstacle")
             fc.stop()
             print("Move backward")
             move('s', 15)
