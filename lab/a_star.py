@@ -2,7 +2,17 @@
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 
 import cv2
+import math
 import numpy as np
+
+class Segment (object):
+	def __init__(self, direction, start, end):
+		self.direction = direction
+		self.start = start
+		self.end = end
+
+	def get_distance(self):
+		return math.sqrt((self.end[0] - self.start[0])**2 + (self.start[1] - self.end[1])**2)
 
 class Node (object):
 	def __init__(self, value, point):
@@ -15,11 +25,12 @@ class Node (object):
 		self.H = 0
 		self.G = 0
 
-	def move_cost(self,other):
+	def move_cost(self, other):
 		if (self.value == 255):
-			return 0
+			cost = abs(self.point[0] - other.point[0]) + abs(self.point[1] - other.point[1])
+			return cost * 100
 		else:
-			return 1
+			return 255
 		
 def children(point,grid):
 	x,y = point.point
@@ -107,14 +118,54 @@ def next_move(pacman, food, environment):
 	path = aStar(grid[pacman[1]][pacman[0]], grid[food[1]][food[0]], grid)
 	return path
 
-def pad_points(environment, x, y, padding):
-	row_limit = environment.shape[0]
-	col_limit = environment.shape[1]
+def points_to_segments(path):
+	segments = []
 
-	for i in range(max(0, y - padding), min(y + padding, row_limit)):
-		for j in range(max(0, x -padding), min(x + padding, col_limit)):
-			environment[j][i] = 0
+	new_segment = True
+	direction = None
 
+	for i in range(len(path)):
+
+		current_point = path[i].point		
+		if (i == len(path) - 1):
+			end = current_point
+			segments.append(Segment(moving_direction, start, end))
+
+			break
+
+		next_point = path[i + 1].point
+		if (current_point[0] == next_point[0] and current_point[1] < next_point[1]):
+			direction = 'd' # turn right
+		elif (current_point[0] == next_point[0] and current_point[1] > next_point[1]):
+			direction = 'a' # turn left
+		elif (current_point[0] > next_point[0] and current_point[1] == next_point[1]):
+			direction = 'w' # forward
+		elif (current_point[0] < next_point[0] and current_point[1] == next_point[1]):
+			direction = 's' # backward
+		elif (current_point[0] > next_point[0] and current_point[1] < next_point[1]):
+			direction = 'wd' # turn 45 degree right
+		elif (current_point[0] > next_point[0] and current_point[1] > next_point[1]):
+			direction = 'wa' # turn 45 degree left
+		elif (current_point[0] < next_point[0] and current_point[1] < next_point[1]):
+			direction = 'wa' # turn 135 degree right
+		elif (current_point[0] < next_point[0] and current_point[1] > next_point[1]):
+			direction = 'wa' # turn 135 degree left
+
+		if (new_segment):
+			start = current_point
+			moving_direction = direction
+
+			new_segment = False
+			continue
+
+		if (moving_direction != direction):
+			end = current_point
+			segments.append(Segment(moving_direction, start, end))
+
+			new_segment = True
+			continue
+
+	return segments
 
 pacman_x = 50
 pacman_y = 99
@@ -132,16 +183,15 @@ for x in range(0, 100):
 			environment[x][y] = 255
 		if (value < 180):
 			environment[x][y] = 0
-			detected_points.append((x,y))
-
-
-for point in detected_points:
-	pad_points(environment, point[0], point[1], 4)
-
-img = cv2.merge((environment, environment, environment))
-cv2.imwrite('padded.jpg', img)
 
 path = next_move((pacman_x, pacman_y),(food_x, food_y), environment)
+segments = points_to_segments(path)
+
+for segment in segments:
+	print(segment.start)
+	print(segment.end)
+	print(segment.direction)
+	print(segment.get_distance())
 
 drivingPath = environment.copy()
 color = 0
