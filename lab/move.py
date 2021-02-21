@@ -179,6 +179,8 @@ def points_to_segments(path):
 	return segments
 
 def move(direction, distance):
+    print("Move in", direction, "direction for", distance, "cm.")
+    
     speed4 = Speed(25)
     speed4.start()
 
