@@ -17,7 +17,7 @@ def move(direction, distance):
     speed4 = Speed(25)
     speed4.start()
 
-    distance_travelled = 0
+    distance_travelled = 2
 
     if direction == 'w':
         print("w")
