@@ -180,7 +180,7 @@ def points_to_segments(path):
 
 def move(direction, distance):
     print("Move in", direction, "direction for", distance, "cm.")
-    
+
     speed4 = Speed(25)
     speed4.start()
 
@@ -304,7 +304,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
             elif (d2 == 's'):
                 angle = 30
 
-            move(d1, 30)
+            move(d1, angle)
             move(d2, segment.get_distance())
         elif (d1 == 'w' or d1 == 's'):
             move(d1, 10)
