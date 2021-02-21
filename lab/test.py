@@ -65,6 +65,10 @@ def main(argv):
         elif opt == "-q":
             parameter2 = arg
 
+    print(test_function)
+    print(p)
+    print(q)
+    
     if test_function == "ultrasonic":
         get_distance_from_ultrasonic(parameter1)
     elif test_function == "move":
