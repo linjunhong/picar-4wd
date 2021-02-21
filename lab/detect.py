@@ -32,8 +32,8 @@ import picamera
 from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
-CAMERA_WIDTH = 640
-CAMERA_HEIGHT = 480
+CAMERA_WIDTH = 320
+CAMERA_HEIGHT = 240
 
 
 def load_labels(path):
