@@ -298,9 +298,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
     speed = Speed(25)
     speed.start()
 
-    forty_five = 12
-    ninty = 25
-    one_three_five = 37
+    forty_five = 15
+    ninty = 30
+    one_three_five = 45
     
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
