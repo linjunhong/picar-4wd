@@ -25,20 +25,20 @@ def move(direction, distance):
         fc.forward(5)
     elif direction == 'a':
         fc.turn_left(10)
-        fc.forward(10)
+        #fc.forward(10)
     elif direction == 's':
         fc.backward(10)
     elif direction == 'd':
         fc.turn_right(10)
-        fc.forward(10)
+        #fc.forward(10)
     elif direction == "wa":
         print("wa")
         fc.turn_left(5)
-        fc.forward(10)
+        #fc.forward(10)
     elif direction == "wd":
         print("wd")
         fc.turn_right(5)
-        fc.forward(10)
+        #fc.forward(10)
     else:
         speed4.deinit()
         fc.stop()
