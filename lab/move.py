@@ -306,7 +306,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
 
             move(d1, angle)
             move(d2, segment.get_distance() - 5)
-        elif (d1 == 'w' or d1 == 's'):
+        elif (d1 == 'a' or d1 == 'd'):
             move(d1, 10)
             move('w', segment.get_distance() - 5)
         else:
