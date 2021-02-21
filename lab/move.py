@@ -291,6 +291,15 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     path = next_move((car_x, car_y),(dest_x, dest_y), environment)
     segments = points_to_segments(path)
 
+    drivingPath = environment.copy()
+    color = 0
+    for node in path:
+        x, y = node.point
+        drivingPath[x, y] = 0
+
+    img = cv2.merge((environment, environment, drivingPath))
+    cv2.imwrite('environment.jpg', img)
+
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
