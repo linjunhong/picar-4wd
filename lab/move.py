@@ -188,11 +188,21 @@ def move(direction, distance):
         fc.forward(10)
     elif direction == 'a':
         fc.turn_left(10)
+        fc.forward(10)
     elif direction == 's':
         fc.backward(10)
     elif direction == 'd':
         fc.turn_right(10)
+        fc.forward(10)
+    elif direction == 'wa':
+        fc.turn_left(5)
+        fc.forward(10)
+    elif direction == 'wd':
+        fc.turn_right(5)
+        fc.forward(10)
     else:
+        speed4.deinit()
+        fc.stop()
         return
 
     while distance_travelled < distance:
@@ -290,6 +300,8 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
         move(segment.direction, segment.get_distance())
+
+    return
 
 def main(argv):
     try:
