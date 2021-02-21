@@ -298,6 +298,10 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
     speed = Speed(25)
     speed.start()
 
+    forty_five = 12
+    ninty = 25
+    one_three_five = 37
+    
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
@@ -307,9 +311,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
 
             angle = 0
             if (d2 == 'w'):
-                angle = 20
+                angle = forty_five
             elif (d2 == 's'):
-                angle = 60
+                angle = one_three_five
 
             if (d1 == 'a'):
                 move('a', angle, speed)
@@ -321,13 +325,13 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
                 move('a', angle, speed)
 
         elif (d1 == 'a'):
-            move('a', 20, speed)
+            move('a', ninty, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('d', 20, speed)
+            move('d', ninty, speed)
         elif (d1 == 'd'):
-            move('d', 20, speed)
+            move('d', ninty, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('a', 20, speed)
+            move('a', ninty, speed)
         else:
             move(segment.direction, segment.get_distance() - compensate, speed)
 
