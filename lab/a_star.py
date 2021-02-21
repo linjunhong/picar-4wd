@@ -6,8 +6,9 @@ import math
 import numpy as np
 
 class Segment (object):
-	def __init__(self, direction, start, end):
+	def __init__(self, direction, relative_direction, start, end):
 		self.direction = direction
+		self.relative_direction = relative_direction
 		self.start = start
 		self.end = end
 
@@ -118,18 +119,47 @@ def next_move(pacman, food, environment):
 	path = aStar(grid[pacman[1]][pacman[0]], grid[food[1]][food[0]], grid)
 	return path
 
+def direction_to_angle(direction):
+	_dict = {
+		'w': 0,
+		's': 180,
+		'a': 270,
+		'd': 90,
+		'dw': 45,
+		'aw': 315,
+		'ds': 135,
+		'as': 225,
+	}
+
+	return _dict[direction]
+
+def angle_to_direction(angle):
+	_dict = {
+		0: 'w',
+		180: 's',
+		270: 'a',
+		90: 'd',
+		45: 'dw',
+		315: 'aw',
+		135: 'ds',
+		225: 'as',
+	}
+
+	return _dict[angle]
+
 def points_to_segments(path):
 	segments = []
 
 	new_segment = True
 	direction = None
+	previous_segment = None
 
 	for i in range(len(path)):
 
 		current_point = path[i].point		
 		if (i == len(path) - 1):
 			end = current_point
-			segments.append(Segment(moving_direction, start, end))
+			segments.append(Segment(moving_direction, moving_direction, start, end))
 
 			break
 
@@ -143,13 +173,13 @@ def points_to_segments(path):
 		elif (current_point[0] < next_point[0] and current_point[1] == next_point[1]):
 			direction = 's' # backward
 		elif (current_point[0] > next_point[0] and current_point[1] < next_point[1]):
-			direction = 'wd' # turn 45 degree right
+			direction = 'dw' # turn 45 degree right
 		elif (current_point[0] > next_point[0] and current_point[1] > next_point[1]):
-			direction = 'wa' # turn 45 degree left
+			direction = 'aw' # turn 45 degree left
 		elif (current_point[0] < next_point[0] and current_point[1] < next_point[1]):
-			direction = 'wa' # turn 135 degree right
+			direction = 'ds' # turn 135 degree right
 		elif (current_point[0] < next_point[0] and current_point[1] > next_point[1]):
-			direction = 'wa' # turn 135 degree left
+			direction = 'as' # turn 135 degree left
 
 		if (new_segment):
 			start = current_point
@@ -160,7 +190,21 @@ def points_to_segments(path):
 
 		if (moving_direction != direction):
 			end = current_point
-			segments.append(Segment(moving_direction, start, end))
+			if (previous_segment == None):
+				relative_moving_direction = moving_direction
+			else:
+				previous_angle = direction_to_angle(previous_segment.direction)
+				angle = direction_to_angle(moving_direction)
+
+				relative_moving_angle = angle - previous_angle
+				if (relative_moving_angle < 0):
+					relative_moving_angle = 360 + relative_moving_angle
+
+				relative_moving_direction = angle_to_direction(relative_moving_angle)
+
+			segment = Segment(moving_direction, relative_moving_direction, start, end)
+			segments.append(segment)
+			previous_segment = segment
 
 			new_segment = True
 			continue
@@ -191,6 +235,7 @@ for segment in segments:
 	print(segment.start)
 	print(segment.end)
 	print(segment.direction)
+	print(segment.relative_direction)
 	print(segment.get_distance())
 
 drivingPath = environment.copy()

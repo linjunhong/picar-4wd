@@ -17,8 +17,9 @@ from picar_4wd.filedb import FileDB
 from picar_4wd.utils import *
 
 class Segment (object):
-	def __init__(self, direction, start, end):
+	def __init__(self, direction, relative_direction, start, end):
 		self.direction = direction
+		self.relative_direction = relative_direction
 		self.start = start
 		self.end = end
 
@@ -129,18 +130,47 @@ def next_move(pacman, food, environment):
 	path = aStar(grid[pacman[1]][pacman[0]], grid[food[1]][food[0]], grid)
 	return path
 
+def direction_to_angle(direction):
+	_dict = {
+		'w': 0,
+		's': 180,
+		'a': 270,
+		'd': 90,
+		'dw': 45,
+		'aw': 315,
+		'ds': 135,
+		'as': 225,
+	}
+
+	return _dict[direction]
+
+def angle_to_direction(angle):
+	_dict = {
+		0: 'w',
+		180: 's',
+		270: 'a',
+		90: 'd',
+		45: 'dw',
+		315: 'aw',
+		135: 'ds',
+		225: 'as',
+	}
+
+	return _dict[angle]
+
 def points_to_segments(path):
 	segments = []
 
 	new_segment = True
 	direction = None
+	previous_segment = None
 
 	for i in range(len(path)):
 
 		current_point = path[i].point		
 		if (i == len(path) - 1):
 			end = current_point
-			segments.append(Segment(moving_direction, start, end))
+			segments.append(Segment(moving_direction, moving_direction, start, end))
 
 			break
 
@@ -171,7 +201,21 @@ def points_to_segments(path):
 
 		if (moving_direction != direction):
 			end = current_point
-			segments.append(Segment(moving_direction, start, end))
+			if (previous_segment == None):
+				relative_moving_direction = moving_direction
+			else:
+				previous_angle = direction_to_angle(previous_segment.direction)
+				angle = direction_to_angle(moving_direction)
+
+				relative_moving_angle = angle - previous_angle
+				if (relative_moving_angle < 0):
+					relative_moving_angle = 360 + relative_moving_angle
+
+				relative_moving_direction = angle_to_direction(relative_moving_angle)
+
+			segment = Segment(moving_direction, relative_moving_direction, start, end)
+			segments.append(segment)
+			previous_segment = segment
 
 			new_segment = True
 			continue
@@ -303,11 +347,11 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
     one_three_five = ninty + forty_five
     
     for segment in segments:
-        print("move ", segment.direction, "for ", segment.get_distance(), " cm")
+        print("move ", segment.relative_direction, "for ", segment.get_distance(), " cm")
 
-        d1 = segment.direction[0]
-        if (len(segment.direction) == 2):
-            d2 = segment.direction[1]
+        d1 = segment.relative_direction[0]
+        if (len(segment.relative_direction) == 2):
+            d2 = segment.relative_direction[1]
 
             angle = 0
             if (d2 == 'w'):
@@ -318,22 +362,18 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
             if (d1 == 'a'):
                 move('a', angle, speed)
                 move(d2, segment.get_distance() - compensate, speed)
-                move('d', angle, speed)
             elif (d1 == 'd'):
                 move('d', angle, speed)
                 move(d2, segment.get_distance() - compensate, speed)
-                move('a', angle, speed)
 
         elif (d1 == 'a'):
             move('a', ninty, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('d', ninty, speed)
         elif (d1 == 'd'):
             move('d', ninty, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('a', ninty, speed)
         else:
-            move(segment.direction, segment.get_distance() - compensate, speed)
+            move(segment.relative_direction, segment.get_distance() - compensate, speed)
 
     speed.deinit()
 
