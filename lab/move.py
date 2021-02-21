@@ -305,7 +305,7 @@ def main(argv):
             command = "map_environment"
         elif opt == "-x":
             command = "map_and_navigate"
-        elif opt == "-d"
+        elif opt == "-d":
             destination_target = arg
 
     if (command == "simple_navigate"):
