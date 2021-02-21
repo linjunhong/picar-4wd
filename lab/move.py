@@ -154,13 +154,13 @@ def points_to_segments(path):
 		elif (current_point[0] < next_point[0] and current_point[1] == next_point[1]):
 			direction = 's' # backward
 		elif (current_point[0] > next_point[0] and current_point[1] < next_point[1]):
-			direction = 'wd' # turn 45 degree right
+			direction = 'dw' # turn 45 degree right
 		elif (current_point[0] > next_point[0] and current_point[1] > next_point[1]):
-			direction = 'wa' # turn 45 degree left
+			direction = 'aw' # turn 45 degree left
 		elif (current_point[0] < next_point[0] and current_point[1] < next_point[1]):
-			direction = 'wa' # turn 135 degree right
+			direction = 'ds' # turn 135 degree right
 		elif (current_point[0] < next_point[0] and current_point[1] > next_point[1]):
-			direction = 'wa' # turn 135 degree left
+			direction = 'as' # turn 135 degree left
 
 		if (new_segment):
 			start = current_point
@@ -185,24 +185,13 @@ def move(direction, distance):
     distance_travelled = 0
 
     if direction == 'w':
-        print("w")
         fc.forward(10)
     elif direction == 'a':
         fc.turn_left(10)
-        fc.forward(10)
     elif direction == 's':
         fc.backward(10)
     elif direction == 'd':
         fc.turn_right(10)
-        fc.forward(10)
-    elif direction == "wa":
-        print("wa")
-        fc.turn_left(5)
-        fc.forward(10)
-    elif direction == "wd":
-        print("wd")
-        fc.turn_right(5)
-        fc.forward(10)
     else:
         speed4.deinit()
         fc.stop()
@@ -302,7 +291,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
 
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
-        move(segment.direction, segment.get_distance())
+
+        for d in range(len(segment.direction)):
+            move(segment.direction[d], segment.get_distance())
 
     return
 
