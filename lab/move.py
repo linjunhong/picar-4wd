@@ -178,11 +178,8 @@ def points_to_segments(path):
 
 	return segments
 
-def move(direction, distance):
+def move(direction, distance, speed):
     print("Move in", direction, "direction for", distance, "cm.")
-
-    speed4 = Speed(25)
-    speed4.start()
 
     distance_travelled = 0
 
@@ -195,7 +192,6 @@ def move(direction, distance):
     elif direction == 'd':
         fc.turn_right(10)
     else:
-        speed4.deinit()
         fc.stop()
         return
 
@@ -204,8 +200,7 @@ def move(direction, distance):
         distance_travelled += speed4() * 0.1
         #print("%scm"%distance_travelled)
         #print("eval 1: ", distance_travelled < distance )
-    
-    speed4.deinit()
+
     fc.stop()
 
     #print("%scm"%distance_travelled)
@@ -300,6 +295,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     img = cv2.merge((environment, environment, drivingPath))
     cv2.imwrite('environment.jpg', img)
 
+    speed = Speed(25)
+    speed.start()
+
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
@@ -313,13 +311,27 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
             elif (d2 == 's'):
                 angle = 30
 
-            move(d1, angle)
-            move(d2, segment.get_distance() - 5)
-        elif (d1 == 'a' or d1 == 'd'):
-            move(d1, 10)
-            move('w', segment.get_distance() - 5)
+            if (d1 == 'a'):
+                move('a', angle, speed)
+                move(d2, segment.get_distance() - 5, speed)
+                move('d', angle, speed)
+            elif (d1 == 'd'):
+                move('d', angle, speed)
+                move(d2, segment.get_distance() - 5, speed)
+                move('a', angle, speed)
+
+        elif (d1 == 'a'):
+            move('a', 10, speed)
+            move('w', segment.get_distance() - 5, speed)
+            move('d', 10, speed)
+        elif (d1 == 'd'):
+            move('d', 10, speed)
+            move('w', segment.get_distance() - 5, speed)
+            move('a', 10, speed)
         else:
-            move(segment.direction, segment.get_distance() - 5)
+            move(segment.direction, segment.get_distance() - 5, speed)
+
+    speed.deinit()
 
     return
 
