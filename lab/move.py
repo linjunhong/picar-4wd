@@ -301,6 +301,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
+        compensate = 0
         d1 = segment.direction[0]
         if (len(segment.direction) == 2):
             d2 = segment.direction[1]
@@ -313,23 +314,23 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
 
             if (d1 == 'a'):
                 move('a', angle, speed)
-                move(d2, segment.get_distance() - 5, speed)
+                move(d2, segment.get_distance() - compensate, speed)
                 move('d', angle, speed)
             elif (d1 == 'd'):
                 move('d', angle, speed)
-                move(d2, segment.get_distance() - 5, speed)
+                move(d2, segment.get_distance() - compensate, speed)
                 move('a', angle, speed)
 
         elif (d1 == 'a'):
             move('a', 10, speed)
-            move('w', segment.get_distance() - 5, speed)
+            move('w', segment.get_distance() - compensate, speed)
             move('d', 10, speed)
         elif (d1 == 'd'):
             move('d', 10, speed)
-            move('w', segment.get_distance() - 5, speed)
+            move('w', segment.get_distance() - compensate, speed)
             move('a', 10, speed)
         else:
-            move(segment.direction, segment.get_distance() - 5, speed)
+            move(segment.direction, segment.get_distance() - compensate, speed)
 
     speed.deinit()
 
@@ -362,6 +363,10 @@ def main(argv):
             advanced_mapping_and_navigate(10, 10)
         elif (destination_target == "2"):
             advanced_mapping_and_navigate(10, 90)
+        elif (destination_target == "3"):
+            advanced_mapping_and_navigate(90, 10)
+        elif (destination_target == "4"):
+            advanced_mapping_and_navigate(90, 90)
     
     return
 
