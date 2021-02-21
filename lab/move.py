@@ -277,7 +277,7 @@ def map_environment():
 
     return environment
 
-def advanced_mapping_and_navigate(dest_x, dest_y):
+def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
     environment = map_environment()
     
     car_x = 50
@@ -301,7 +301,6 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
-        compensate = 2
         d1 = segment.direction[0]
         if (len(segment.direction) == 2):
             d2 = segment.direction[1]
@@ -338,35 +337,35 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
 
 def main(argv):
     try:
-      opts, args = getopt.getopt(argv,"nmxd:")
+      opts, args = getopt.getopt(argv,"f:p:q:r:")
     except getopt.GetoptError:
-      print("test.py [-n|-m|-x|-d]")
+      print("move.py -f <function> -p <paramter> -q <parameter> -r <parameter>")
       sys.exit(2)
 
     command = None
     for opt, arg in opts:
-        if opt == "-n":
-            command = "simple_navigate"
-        elif opt == "-m":
-            command = "map_environment"
-        elif opt == "-x":
-            command = "map_and_navigate"
-        elif opt == "-d":
-            destination_target = arg
+        if opt == "-f":
+            command = arg
+        elif opt == "-p":
+            parameter1 = arg
+        elif opt == "-q":
+            parameter2 = arg
+        elif opt == "-r":
+            parameter3 - arg
 
-    if (command == "simple_navigate"):
+    if (command == "navigate"):
         simple_navigate()
     elif (command == "map_environment"):
         map_environment()
-    elif (command == "map_and_navigate"):
-        if (destination_target == "1"):
-            advanced_mapping_and_navigate(10, 10)
-        elif (destination_target == "2"):
-            advanced_mapping_and_navigate(10, 90)
-        elif (destination_target == "3"):
-            advanced_mapping_and_navigate(90, 10)
-        elif (destination_target == "4"):
-            advanced_mapping_and_navigate(90, 90)
+    elif (command == "advance_navigate"):
+        if (parameter1 == "1"):
+            advanced_mapping_and_navigate(10, 10, parameter3)
+        elif (parameter1 == "2"):
+            advanced_mapping_and_navigate(10, 90, parameter3)
+        elif (parameter1 == "3"):
+            advanced_mapping_and_navigate(90, 10, parameter3)
+        elif (parameter1 == "4"):
+            advanced_mapping_and_navigate(90, 90, parameter3)
     
     return
 
