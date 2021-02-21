@@ -292,7 +292,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
 
 def main(argv):
     try:
-      opts, args = getopt.getopt(argv,"nmxd")
+      opts, args = getopt.getopt(argv,"nmxd:")
     except getopt.GetoptError:
       print("test.py [-n|-m|-x|-d]")
       sys.exit(2)
