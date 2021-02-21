@@ -1,4 +1,3 @@
-import cv2
 import getopt
 import picar_4wd as fc
 import sys
@@ -57,6 +56,7 @@ def main(argv):
       print("test.py -f <function> -p <paramter> -q <parameter>")
       sys.exit(2)
 
+    test_function = None
     for opt, arg in opts:
         if opt == "-f":
             test_function = arg
