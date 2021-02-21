@@ -21,7 +21,7 @@ def move(direction, distance):
 
     if direction == 'w':
         print("w")
-        fc.forward(10)
+        fc.forward(5)
     elif direction == 'a':
         fc.turn_left(10)
         fc.forward(10)
