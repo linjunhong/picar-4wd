@@ -301,7 +301,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
-        compensate = 0
+        compensate = 2
         d1 = segment.direction[0]
         if (len(segment.direction) == 2):
             d2 = segment.direction[1]
