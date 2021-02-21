@@ -194,10 +194,12 @@ def move(direction, distance):
     elif direction == 'd':
         fc.turn_right(10)
         fc.forward(10)
-    elif direction == 'wa':
+    elif direction == "wa":
+        print("wa")
         fc.turn_left(5)
         fc.forward(10)
-    elif direction == 'wd':
+    elif direction == "wd":
+        print("wd")
         fc.turn_right(5)
         fc.forward(10)
     else:
