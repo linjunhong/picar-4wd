@@ -108,7 +108,7 @@ def print_object_labels(results, labels):
     for obj in results:
         print("classid:", obj['class_id'], "label:", labels[obj['class_id']], "scores:", obj['score'])
 
-def detect(arg_labels arg_interpreter, preview):
+def detect(arg_labels, arg_interpreter, preview):
   labels = load_labels(arg_labels)
   interpreter = Interpreter(arg_model)
   interpreter.allocate_tensors()
