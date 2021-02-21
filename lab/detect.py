@@ -32,8 +32,8 @@ import picamera
 from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
-CAMERA_WIDTH = 320
-CAMERA_HEIGHT = 240
+CAMERA_WIDTH = 640
+CAMERA_HEIGHT = 480
 
 
 def load_labels(path):
@@ -121,6 +121,8 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
     if (preview):
       camera.start_preview()
 
+    vid = cv2.VideoCapture(0)
+
     try:
       stream = io.BytesIO()
 
@@ -130,8 +132,12 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
       for _ in camera.capture_continuous(
           stream, format='jpeg', use_video_port=True):
         stream.seek(0)
-        image = Image.open(stream).convert('RGB').resize(
-            (input_width, input_height), Image.ANTIALIAS)
+        
+        # image = Image.open(stream).convert('RGB').resize(
+        #    (input_width, input_height), Image.ANTIALIAS)
+
+        ret, image = cap.read()
+
         start_time = time.monotonic()
         results = detect_objects(interpreter, image, arg_threshold)
         elapsed_ms = (time.monotonic() - start_time) * 1000
@@ -149,7 +155,11 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         stream.truncate()
 
     finally:
-      camera.stop_preview()
+      cap.release()
+      cv2.destroyAllWindows()
+
+      if (preview):
+        camera.stop_preview()
 
 def main():
   parser = argparse.ArgumentParser(
