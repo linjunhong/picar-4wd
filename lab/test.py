@@ -1,9 +1,19 @@
 import getopt
-import picar_4wd as fc
 import sys
 
+import picar_4wd as fc
+from picar_4wd.pwm import PWM
+from picar_4wd.adc import ADC
+from picar_4wd.pin import Pin
+from picar_4wd.motor import Motor
+from picar_4wd.servo import Servo
+from picar_4wd.ultrasonic import Ultrasonic 
+from picar_4wd.speed import Speed
+from picar_4wd.filedb import FileDB  
+from picar_4wd.utils import *
+
 def move(direction, distance):
-    print("Move in ", direction, " direction for ", distance, " cm.")
+    print("Move in", direction, "direction for", distance, "cm.")
     speed4 = Speed(25)
     speed4.start()
 
@@ -64,10 +74,6 @@ def main(argv):
             parameter1 = arg
         elif opt == "-q":
             parameter2 = arg
-
-    print(test_function)
-    print(parameter1)
-    print(parameter2)
 
     if test_function == "ultrasonic":
         get_distance_from_ultrasonic(parameter1)
