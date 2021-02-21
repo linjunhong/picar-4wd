@@ -185,6 +185,7 @@ def move(direction, distance):
     distance_travelled = 0
 
     if direction == 'w':
+        print("w")
         fc.forward(10)
     elif direction == 'a':
         fc.turn_left(10)
@@ -321,12 +322,7 @@ def main(argv):
         elif opt == "-x":
             command = "map_and_navigate"
         elif opt == "-d":
-            print("opt", opt)
             destination_target = arg
-            print(arg)
-
-    print(command)
-    print(destination_target)
 
     if (command == "simple_navigate"):
         simple_navigate()
