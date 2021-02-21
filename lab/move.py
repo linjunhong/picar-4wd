@@ -77,7 +77,7 @@ def pad_points(environment, x, y, padding):
 
 	for i in range(max(0, y - padding), min(y + padding, row_limit)):
 		for j in range(max(0, x -padding), min(x + padding, col_limit)):
-			environment[j][i] = 0
+			environment[i][j] = 0
 
 def map_environment():
     environment_size = 100
