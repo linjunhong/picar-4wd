@@ -292,8 +292,23 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
 
-        for d in range(len(segment.direction)):
-            move(segment.direction[d], segment.get_distance())
+        d1 = segment.direction[0]
+        if (len(segment.direction) == 2):
+            d2 = segment.direction[1]
+
+            angle = 0
+            if (d2 == 'w'):
+                angle = 10
+            elif (d2 == 's')
+                angle = 30
+
+            move(d1, 30)
+            move(d2, segment.get_distance())
+        elif (d1 == 'w' or d1 == 's'):
+            move(d1, 10)
+            move('w', segment.get_distance())
+        else:
+            move(segment.direction, segment.get_distance())
 
     return
 
