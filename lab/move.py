@@ -299,7 +299,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
             angle = 0
             if (d2 == 'w'):
                 angle = 10
-            elif (d2 == 's')
+            elif (d2 == 's'):
                 angle = 30
 
             move(d1, 30)
