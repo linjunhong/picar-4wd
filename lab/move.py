@@ -307,10 +307,11 @@ def main(argv):
             command = "map_and_navigate"
         elif opt == "-d":
             destination_target = arg
+            print(arg)
 
     print(command)
     print(destination_target)
-    
+
     if (command == "simple_navigate"):
         simple_navigate()
     elif (command == "map_environment"):
