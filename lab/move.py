@@ -355,7 +355,7 @@ def main(argv):
         elif opt == "-q":
             parameter2 = arg
         elif opt == "-r":
-            parameter3 - arg
+            parameter3 = arg
 
     if (command == "navigate"):
         simple_navigate()
