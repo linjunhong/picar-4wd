@@ -277,7 +277,7 @@ def map_environment():
 
     return environment
 
-def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
+def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
     environment = map_environment()
     
     car_x = 50
@@ -298,9 +298,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
     speed = Speed(25)
     speed.start()
 
-    forty_five = 15
-    ninty = 30
-    one_three_five = 53
+    ninty = turn_power
+    forty_five = int(turn_power / 2)
+    one_three_five = ninty + forty_five
     
     for segment in segments:
         print("move ", segment.direction, "for ", segment.get_distance(), " cm")
@@ -363,13 +363,13 @@ def main(argv):
         map_environment()
     elif (command == "advance_navigate"):
         if (parameter1 == "1"):
-            advanced_mapping_and_navigate(10, 10, int(parameter2))
+            advanced_mapping_and_navigate(10, 10, int(parameter2), int(parameter3))
         elif (parameter1 == "2"):
-            advanced_mapping_and_navigate(10, 90, int(parameter2))
+            advanced_mapping_and_navigate(10, 90, int(parameter2), int(parameter3))
         elif (parameter1 == "3"):
-            advanced_mapping_and_navigate(90, 10, int(parameter2))
+            advanced_mapping_and_navigate(90, 10, int(parameter2), int(parameter3))
         elif (parameter1 == "4"):
-            advanced_mapping_and_navigate(90, 90, int(parameter2))
+            advanced_mapping_and_navigate(90, 90, int(parameter2), int(parameter3))
     
     return
 
