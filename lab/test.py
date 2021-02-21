@@ -16,6 +16,7 @@ def move(direction, distance):
     print("Move in", direction, "direction for", distance, "cm.")
     speed4 = Speed(25)
     speed4.start()
+    time.sleep(1)
 
     distance_travelled = 2
 
