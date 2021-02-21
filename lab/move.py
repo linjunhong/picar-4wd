@@ -71,6 +71,14 @@ def navigate():
         
         i += 1
 
+def pad_points(environment, x, y, padding):
+	row_limit = environment.shape[0]
+	col_limit = environment.shape[1]
+
+	for i in range(max(0, y - padding), min(y + padding, row_limit)):
+		for j in range(max(0, x -padding), min(x + padding, col_limit)):
+			environment[j][i] = 0
+
 def map_environment():
     environment_size = 100
     x_offset = environment_size / 2
@@ -81,7 +89,7 @@ def map_environment():
         distance_1 = fc.get_distance_at(angle)
         distance_2 = fc.get_distance_at(angle)
         distance = (distance_1 + distance_2) / 2
-        
+
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
@@ -97,13 +105,14 @@ def map_environment():
                 print("Y: ", y)
                 environment[y, x] = 0
 
+                # add padding so that car can navigate
+                pad_points(environment, x, y, 5)
+
     # Reset servo
     fc.get_distance_at(0)
 
     img = cv2.merge((environment, environment, environment))
-    print(img.shape)
     cv2.imwrite('color_img.jpg', img)
-    cv2.imshow("image", img)
 
 def main(argv):
     try:
