@@ -306,6 +306,7 @@ def main(argv):
         elif opt == "-x":
             command = "map_and_navigate"
         elif opt == "-d":
+            print("opt", opt)
             destination_target = arg
             print(arg)
 
