@@ -308,6 +308,9 @@ def main(argv):
         elif opt == "-d":
             destination_target = arg
 
+    print(command)
+    print(destination_target)
+    
     if (command == "simple_navigate"):
         simple_navigate()
     elif (command == "map_environment"):
