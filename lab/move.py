@@ -305,12 +305,12 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
                 angle = 30
 
             move(d1, angle)
-            move(d2, segment.get_distance())
+            move(d2, segment.get_distance() - 5)
         elif (d1 == 'w' or d1 == 's'):
             move(d1, 10)
-            move('w', segment.get_distance())
+            move('w', segment.get_distance() - 5)
         else:
-            move(segment.direction, segment.get_distance())
+            move(segment.direction, segment.get_distance() - 5)
 
     return
 
