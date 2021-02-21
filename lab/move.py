@@ -359,13 +359,13 @@ def main(argv):
         map_environment()
     elif (command == "advance_navigate"):
         if (parameter1 == "1"):
-            advanced_mapping_and_navigate(10, 10, parameter3)
+            advanced_mapping_and_navigate(10, 10, parameter2)
         elif (parameter1 == "2"):
-            advanced_mapping_and_navigate(10, 90, parameter3)
+            advanced_mapping_and_navigate(10, 90, parameter2)
         elif (parameter1 == "3"):
-            advanced_mapping_and_navigate(90, 10, parameter3)
+            advanced_mapping_and_navigate(90, 10, parameter2)
         elif (parameter1 == "4"):
-            advanced_mapping_and_navigate(90, 90, parameter3)
+            advanced_mapping_and_navigate(90, 90, parameter2)
     
     return
 
