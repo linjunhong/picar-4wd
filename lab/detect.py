@@ -166,7 +166,7 @@ def main():
       default=0.4)
   args = parser.parse_args()
 
-  detect(args.labels, args.model, true)
+  detect(args.labels, args.model, True)
 
 if __name__ == '__main__':
   main()
