@@ -18,7 +18,7 @@ def move(direction, distance):
     speed4.start()
     time.sleep(1)
 
-    distance_travelled = 2
+    distance_travelled = 0
 
     if direction == 'w':
         print("w")
