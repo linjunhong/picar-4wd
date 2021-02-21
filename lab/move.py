@@ -261,10 +261,10 @@ def map_environment():
 
             # make sure there is no point outside the environment
             if (x > 0 and x < environment_size and y > 0 and y < environment_size):
-                print("angle: ", angle)
-                print("distance: ", distance)
-                print("X: ", x)
-                print("Y: ", y)
+                # print("angle: ", angle)
+                # print("distance: ", distance)
+                # print("X: ", x)
+                # print("Y: ", y)
                 environment[y, x] = 0
 
                 # add padding so that car can navigate
@@ -288,6 +288,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y):
     segments = points_to_segments(path)
 
     for segment in segments:
+        print("move ", segment.direction, "for ", segment.get_distance(), " cm")
         move(segment.direction, segment.get_distance())
 
 def main(argv):
