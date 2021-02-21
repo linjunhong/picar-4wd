@@ -110,7 +110,7 @@ def print_object_labels(results, labels):
 
 def detect(arg_labels, arg_interpreter, preview):
   labels = load_labels(arg_labels)
-  interpreter = Interpreter(arg_model)
+  interpreter = Interpreter(arg_interpreter)
   interpreter.allocate_tensors()
   _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
 
