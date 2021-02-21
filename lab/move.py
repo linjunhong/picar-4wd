@@ -307,9 +307,9 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
 
             angle = 0
             if (d2 == 'w'):
-                angle = 10
+                angle = 20
             elif (d2 == 's'):
-                angle = 30
+                angle = 60
 
             if (d1 == 'a'):
                 move('a', angle, speed)
@@ -321,13 +321,13 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate):
                 move('a', angle, speed)
 
         elif (d1 == 'a'):
-            move('a', 10, speed)
+            move('a', 20, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('d', 10, speed)
+            move('d', 20, speed)
         elif (d1 == 'd'):
-            move('d', 10, speed)
+            move('d', 20, speed)
             move('w', segment.get_distance() - compensate, speed)
-            move('a', 10, speed)
+            move('a', 20, speed)
         else:
             move(segment.direction, segment.get_distance() - compensate, speed)
 
