@@ -108,7 +108,7 @@ def print_object_labels(results, labels):
     for obj in results:
         print("classid:", obj['class_id'], "label:", labels[obj['class_id']], "scores:", obj['score'])
 
-def detect(arg_labels, arg_interpreter, preview):
+def detect(arg_labels, arg_interpreter, arg_threshold, preview):
   labels = load_labels(arg_labels)
   interpreter = Interpreter(arg_interpreter)
   interpreter.allocate_tensors()
@@ -133,7 +133,7 @@ def detect(arg_labels, arg_interpreter, preview):
         image = Image.open(stream).convert('RGB').resize(
             (input_width, input_height), Image.ANTIALIAS)
         start_time = time.monotonic()
-        results = detect_objects(interpreter, image, args.threshold)
+        results = detect_objects(interpreter, image, arg_threshold)
         elapsed_ms = (time.monotonic() - start_time) * 1000
 
         print("Elapsed time (ms): ", elapsed_ms)
@@ -166,7 +166,7 @@ def main():
       default=0.4)
   args = parser.parse_args()
 
-  detect(args.labels, args.model, True)
+  detect(args.labels, args.model, args.threshold, True)
 
 if __name__ == '__main__':
   main()
