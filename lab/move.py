@@ -356,7 +356,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
     
     #object detection using PiCamera
     labels = load_labels("./tmp/coco_labels.txt")
-    interpreter = Interpreter("./tmp/detect.tflite", num_threads = 2)
+    interpreter = Interpreter("./tmp/detect.tflite", num_threads = 3)
     interpreter.allocate_tensors()
     _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
     camera = start_camera()
