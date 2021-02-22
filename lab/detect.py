@@ -125,6 +125,7 @@ def capture_frame(camera):
     image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
     stream.seek(0)
     stream.truncate()
+    break
 
   return image
 
