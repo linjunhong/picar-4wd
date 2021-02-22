@@ -270,18 +270,20 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
     while distance_travelled < distance:
 
         stop = False
+        stopped = False
         start_time = time.monotonic()
         image = capture_frame(camera, input_height, input_width)
         results = detect_objects(interpreter, image, threshold)
 
-        saw_stop_sign = "stop sign" in get_detected_object_labels(results, labels)
-        if (saw_stop_sign):
-            print("Stop sign detected")
-        if (stop_sign_detected and not saw_stop_sign):
-            stop = True
-            stop_sign_detected = False
-        elif (not stop_sign_detected and saw_stop_sign):
-            stop_sign_detected = True
+        if (not stopped):
+            saw_stop_sign = "stop sign" in get_detected_object_labels(results, labels)
+            if (saw_stop_sign):
+                print("Stop sign detected")
+            if (stop_sign_detected and not saw_stop_sign):
+                stop = True
+                stop_sign_detected = False
+            elif (not stop_sign_detected and saw_stop_sign):
+                stop_sign_detected = True
             
         elapsed_seconds = (time.monotonic() - start_time)
 
@@ -293,7 +295,8 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         if (stop):
             print("Stop for 5s")
             fc.stop()
-            time.sleep(5)
+            time.sleep(3)
+            stopped = True
             fc.forward(10)
 
     fc.stop()
@@ -371,7 +374,8 @@ def map_environment():
     return environment
 
 def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
-    print("advance_navigate")
+    
+    print("-== Map Environment ==-")
     environment = map_environment()
     
     #object detection using PiCamera
