@@ -439,17 +439,14 @@ def main(argv):
         elif opt == "-r":
             parameter3 = arg
 
-    print(command)
-    print(parameter1)
-    print(parameter2)
-    print(parameter3)
-
     if (command == "navigate"):
         simple_navigate()
     elif (command == "map_environment"):
         map_environment()
     elif (command == "advance_navigate"):
+        print("command")
         if (parameter1 == "1"):
+            print("parameter 1")
             advanced_mapping_and_navigate(10, 10, int(parameter2), int(parameter3))
         elif (parameter1 == "2"):
             advanced_mapping_and_navigate(10, 90, int(parameter2), int(parameter3))
