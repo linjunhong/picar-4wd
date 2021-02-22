@@ -138,6 +138,11 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         #  (input_width, input_height), Image.ANTIALIAS)
 
         ret, image = cap.read()
+        if (ret):
+          print("True")
+        else:
+          print("Fase")
+
         cv2.imshow('image', image)  
         m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
 
