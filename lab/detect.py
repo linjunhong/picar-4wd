@@ -122,8 +122,6 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
     if (preview):
       camera.start_preview()
 
-    cap = cv2.VideoCapture(0)
-
     try:
       stream = io.BytesIO()
 
@@ -134,17 +132,11 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
           stream, format='jpeg', use_video_port=True):
         stream.seek(0)
         
-        #image = Image.open(stream).convert('RGB').resize(
-        #  (input_width, input_height), Image.ANTIALIAS)
+        image = Image.open(stream).convert('RGB').resize(
+          (input_width, input_height), Image.ANTIALIAS)
 
-        ret, image = cap.read()
-        if (ret):
-          print("True")
-        else:
-          print("Fase")
-
-        cv2.imshow('image', image)  
-        m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
+        m_image = numpy.array(pil_image)
+        m_image = m_image[:, :, ::-1].copy()
 
         start_time = time.monotonic()
         results = detect_objects(interpreter, m_image, arg_threshold)
@@ -163,8 +155,6 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         stream.truncate()
 
     finally:
-      cap.release()
-      cv2.destroyAllWindows()
 
       if (preview):
         camera.stop_preview()
