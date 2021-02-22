@@ -461,13 +461,13 @@ def main(argv):
         print("command")
         if (parameter1 == "1"):
             print("parameter 1")
-            advanced_mapping_and_navigate(10, 10, int(parameter2), int(parameter3))
+            advanced_mapping_and_navigate(5, 5, int(parameter2), int(parameter3))
         elif (parameter1 == "2"):
-            advanced_mapping_and_navigate(10, 90, int(parameter2), int(parameter3))
+            advanced_mapping_and_navigate(5, 95, int(parameter2), int(parameter3))
         elif (parameter1 == "3"):
-            advanced_mapping_and_navigate(90, 10, int(parameter2), int(parameter3))
+            advanced_mapping_and_navigate(95, 5, int(parameter2), int(parameter3))
         elif (parameter1 == "4"):
-            advanced_mapping_and_navigate(90, 90, int(parameter2), int(parameter3))
+            advanced_mapping_and_navigate(95, 95, int(parameter2), int(parameter3))
     
     return
 
