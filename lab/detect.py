@@ -137,7 +137,7 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
 
         m_image = np.array(image)
         m_image = m_image[:, :, ::-1].copy()
-        m_image = cv2.GaussianBlur(m_image, 0)
+        m_image = cv2.pyrDown(m_image)
 
         start_time = time.monotonic()
         results = detect_objects(interpreter, m_image, arg_threshold)
