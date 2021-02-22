@@ -119,6 +119,7 @@ def close_camera(camera):
   camera.close()
 
 def capture_frame(camera):
+  stream = io.BytesIO()
   camera.capture_continuous(stream, format='jpeg', use_video_port=True)
   stream.seek(0)
   image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
