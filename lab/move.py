@@ -46,7 +46,7 @@ class Node (object):
             return cost * 100
              
         else:
-            return 0
+            return 255
 
 def children(point,grid):
     x,y = point.point
