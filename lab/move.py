@@ -264,17 +264,30 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         fc.stop()
         return
 
+    stop_sign_detected = False
     while distance_travelled < distance:
 
+        stop = False
         start_time = time.monotonic()
         image = capture_frame(camera, input_height, input_width)
         results = detect_objects(interpreter, image, threshold)
+
+        saw_stop_sign = "stop sign" in labels.values()
+        if (stop_sign_detected and not saw_stop_sign):
+            stop = True
+        elif (not stop_sign_detected and saw_stop_sign):
+            stop_sign_detected = True
+            
         elapsed_seconds = (time.monotonic() - start_time)
 
         print("Elapsed time (ms): ", elapsed_seconds * 1000)
         print_object_labels(results, labels)
 
         distance_travelled += speed() * elapsed_seconds
+
+        if (stop):
+            fc_stop()
+            time.sleep(5)
 
     fc.stop()
 
