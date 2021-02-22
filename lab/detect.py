@@ -137,7 +137,7 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
 
         m_image = np.array(image)
         m_image = m_image[:, :, ::-1].copy()
-        m_image = cv2.resize(m_image, (0,0), fx=0.2, fy=0.2, interpolation=cv2.INTER_NEAREST)
+        m_image = cv2.pyrDown(m_image)
 
         start_time = time.monotonic()
         results = detect_objects(interpreter, m_image, arg_threshold)
