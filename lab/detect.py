@@ -134,9 +134,10 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
           stream, format='jpeg', use_video_port=True):
         stream.seek(0)
         
-        image = Image.open(stream).convert('RGB').resize(
-          (input_width, input_height), Image.ANTIALIAS)
-          
+        #image = Image.open(stream).convert('RGB').resize(
+        #  (input_width, input_height), Image.ANTIALIAS)
+
+        ret, image = cap.read()  
         m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
 
         start_time = time.monotonic()
