@@ -109,14 +109,51 @@ def print_object_labels(results, labels):
     for obj in results:
         print("classid:", obj['class_id'], "label:", labels[obj['class_id']], "scores:", obj['score'])
 
+def start_camera():
+  camera = picamera.PiCamera(resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30)
+  camera.rotation = 180
+
+  return camera
+
+def close_camera(camera):
+  camera.close()
+
+def capture_frame(camera):
+  camera.capture_continuous(stream, format='jpeg', use_video_port=True)
+  stream.seek(0)
+  image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
+  stream.seek(0)
+  stream.truncate()
+
+  return image
+
+def detect_new(arg_labels, arg_interpreter, arg_threshold, preview):
+  labels = load_labels(arg_labels)
+  interpreter = Interpreter(arg_interpreter, num_threads=2)
+  interpreter.allocate_tensors()
+  _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
+
+  camera = start_camera()
+  try:
+    image = capture_frame(camera)
+    
+    start_time = time.monotonic()
+    results = detect_objects(interpreter, image, arg_threshold)
+    elapsed_ms = (time.monotonic() - start_time) * 1000
+
+    print("Elapsed time (ms): ", elapsed_ms)
+    print_object_labels(results, labels)
+
+  finally:
+    camera.close()
+
 def detect(arg_labels, arg_interpreter, arg_threshold, preview):
   labels = load_labels(arg_labels)
   interpreter = Interpreter(arg_interpreter, num_threads=2)
   interpreter.allocate_tensors()
   _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
 
-  with picamera.PiCamera(
-      resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
+  with picamera.PiCamera(resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30) as camera:
     camera.rotation = 180
 
     if (preview):
@@ -128,19 +165,13 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
       if (preview):
         annotator = Annotator(camera)
 
-      for _ in camera.capture_continuous(
-          stream, format='jpeg', use_video_port=True):
-        stream.seek(0)
-        
-        image = Image.open(stream).convert('RGB').resize(
-          (input_width, input_height), Image.ANTIALIAS)
+      for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
 
-        m_image = np.array(image)
-        m_image = m_image[:, :, ::-1].copy()
-        #m_image = cv2.pyrDown(m_image)
+        stream.seek(0)
+        image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
 
         start_time = time.monotonic()
-        results = detect_objects(interpreter, m_image, arg_threshold)
+        results = detect_objects(interpreter, image, arg_threshold)
         elapsed_ms = (time.monotonic() - start_time) * 1000
 
         print("Elapsed time (ms): ", elapsed_ms)
@@ -175,7 +206,7 @@ def main():
       default=0.4)
   args = parser.parse_args()
 
-  detect(args.labels, args.model, args.threshold, True)
+  detect_new(args.labels, args.model, args.threshold, True)
 
 if __name__ == '__main__':
   main()

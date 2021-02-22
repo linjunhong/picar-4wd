@@ -243,12 +243,37 @@ def move(direction, distance, speed):
     while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed() * 0.1
-        #print("%scm"%distance_travelled)
-        #print("eval 1: ", distance_travelled < distance )
+
+        if (detection_enabled):
+            detect("./tmp/detect.tflite", "./tmp/coco_labels.txt", 0.4, False)
 
     fc.stop()
 
-    #print("%scm"%distance_travelled)
+def move_and_detect(direction, distance, speed):
+    print("Move in", direction, "direction for", distance, "cm.")
+
+    distance_travelled = 0
+
+    if direction == 'w':
+        fc.forward(10)
+    elif direction == 'a':
+        fc.turn_left(10)
+    elif direction == 's':
+        fc.backward(10)
+    elif direction == 'd':
+        fc.turn_right(10)
+    else:
+        fc.stop()
+        return
+
+    while distance_travelled < distance:
+        time.sleep(0.1)
+        distance_travelled += speed() * 0.1
+
+        if (detection_enabled):
+            detect("./tmp/detect.tflite", "./tmp/coco_labels.txt", 0.4, False)
+
+    fc.stop()
 
 
 def simple_navigate():
