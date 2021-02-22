@@ -249,7 +249,7 @@ def move(direction, distance, speed):
 
     fc.stop()
 
-def move_and_detect(direction, distance, speed):
+def move_and_detect(direction, distance, speed, camera, input_height, input_width, interpreter, threshold):
     print("Move in", direction, "direction for", distance, "cm.")
 
     distance_travelled = 0
@@ -267,8 +267,16 @@ def move_and_detect(direction, distance, speed):
         return
 
     while distance_travelled < distance:
-        time.sleep(0.1)
-        distance_travelled += speed() * 0.1
+
+        start_time = time.monotonic()
+        image = capture_frame(camera, input_height, input_width)
+        results = detect_objects(interpreter, image, threshold)
+        elapsed_seconds = (time.monotonic() - start_time) * 1000
+
+        print("Elapsed time (ms): ", elapsed_seconds * 1000)
+        print_object_labels(results, labels)
+
+        distance_travelled += speed() * elapsed_seconds
 
         if (detection_enabled):
             detect("./tmp/detect.tflite", "./tmp/coco_labels.txt", 0.4, False)
@@ -350,6 +358,13 @@ def map_environment():
 def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
     environment = map_environment()
     
+    #object detection using PiCamera
+    labels = load_labels("./tmp/coco_labels.txt")
+    interpreter = Interpreter("./tmp/detect.tflite", num_threads = 2)
+    interpreter.allocate_tensors()
+    _, input_height, input_width, _ = interpreter.get_input_details()[0]['shape']
+    camera = start_camera()
+
     car_x = 50
     car_y = 99
 
@@ -386,20 +401,20 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
                 angle = one_three_five
 
             if (d1 == 'a'):
-                move('a', angle, speed)
-                move(d2, segment.get_distance() - compensate, speed)
+                move_and('a', angle, speed)
+                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
             elif (d1 == 'd'):
-                move('d', angle, speed)
-                move(d2, segment.get_distance() - compensate, speed)
+                move_and('d', angle, speed)
+                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
 
         elif (d1 == 'a'):
-            move('a', ninty, speed)
-            move('w', segment.get_distance() - compensate, speed)
+            move_and('a', ninty, speed)
+            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
         elif (d1 == 'd'):
-            move('d', ninty, speed)
-            move('w', segment.get_distance() - compensate, speed)
+            move_and('d', ninty, speed)
+            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
         else:
-            move(segment.relative_direction, segment.get_distance() - compensate, speed)
+            move_and_detect(segment.relative_direction, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
 
     speed.deinit()
 
