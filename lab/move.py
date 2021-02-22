@@ -403,17 +403,17 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
                 angle = one_three_five
 
             if (d1 == 'a'):
-                move_and('a', angle, speed)
+                move('a', angle, speed)
                 move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
             elif (d1 == 'd'):
-                move_and('d', angle, speed)
+                move('d', angle, speed)
                 move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
 
         elif (d1 == 'a'):
-            move_and('a', ninty, speed)
+            move('a', ninty, speed)
             move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
         elif (d1 == 'd'):
-            move_and('d', ninty, speed)
+            move('d', ninty, speed)
             move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
         else:
             move_and_detect(segment.relative_direction, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
