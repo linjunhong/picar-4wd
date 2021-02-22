@@ -137,7 +137,8 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         #image = Image.open(stream).convert('RGB').resize(
         #  (input_width, input_height), Image.ANTIALIAS)
 
-        ret, image = cap.read()  
+        ret, image = cap.read()
+        cv2.imshow(image)  
         m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
 
         start_time = time.monotonic()
