@@ -19,25 +19,25 @@ from picar_4wd.utils import *
 from detect import *
 
 class Segment (object):
-	def __init__(self, direction, relative_direction, start, end):
-		self.direction = direction
-		self.relative_direction = relative_direction
-		self.start = start
-		self.end = end
+    def __init__(self, direction, relative_direction, start, end):
+        self.direction = direction
+        self.relative_direction = relative_direction
+        self.start = start
+        self.end = end
 
-	def get_distance(self):
-		return math.sqrt((self.end[0] - self.start[0])**2 + (self.start[1] - self.end[1])**2)
+    def get_distance(self):
+        return math.sqrt((self.end[0] - self.start[0])**2 + (self.start[1] - self.end[1])**2)
 
 class Node (object):
-	def __init__(self, value, point):
-		self.value = value
-		self.point = point
-		self.refresh()
+    def __init__(self, value, point):
+        self.value = value
+        self.point = point
+        self.refresh()
 
-	def refresh(self):
-		self.parent = None
-		self.H = 0
-		self.G = 0
+    def refresh(self):
+        self.parent = None
+        self.H = 0
+        self.G = 0
 
     def move_cost(self, other):
         if (other.point[0] == 0 or other.point[0] == 99 or other.point[1] == 0 or other.point[1] == 99):
@@ -47,186 +47,186 @@ class Node (object):
             cost = abs(self.point[0] - other.point[0]) + abs(self.point[1] - other.point[1])
             return cost * 2 * cost * 2
              
-		else:
-			return 255
+        else:
+            return 255
 
 def children(point,grid):
-	x,y = point.point
+    x,y = point.point
 
-	links = []
-	# for d in [(max(0, x-1), y),(x,max(0, y - 1)),(x,min(len(grid[0])-1, y + 1)),(min(len(grid)-1, x+1),y)]:
-	for i in [x-1, x, x+1]:
-		for j in [y-1, y, y+1]:
-			if i != x or j != y:
-				if (i >= 0 and j >= 0 and i < len(grid) and j < len(grid[0])):
-					links.append(grid[i][j])
+    links = []
+    # for d in [(max(0, x-1), y),(x,max(0, y - 1)),(x,min(len(grid[0])-1, y + 1)),(min(len(grid)-1, x+1),y)]:
+    for i in [x-1, x, x+1]:
+        for j in [y-1, y, y+1]:
+            if i != x or j != y:
+                if (i >= 0 and j >= 0 and i < len(grid) and j < len(grid[0])):
+                    links.append(grid[i][j])
 
-	ret = [link for link in links if (link.value > 10)]
+    ret = [link for link in links if (link.value > 10)]
 
-	return ret
+    return ret
 
 def manhattan(point,point2):
-	return abs(point.point[0] - point2.point[0]) + abs(point.point[1] - point2.point[1])
+    return abs(point.point[0] - point2.point[0]) + abs(point.point[1] - point2.point[1])
 
 def aStar(start, goal, grid):
-	#The open and closed sets
-	openset = set()
-	closedset = set()
-	#Current point is the starting point
-	current = start
-	#Add the starting point to the open set
-	openset.add(current)
-	#While the open set is not empty
-	while openset:
-		#Find the item in the open set with the lowest G + H score
-		current = min(openset, key=lambda o:o.G + o.H)
-		#If it is the item we want, retrace the path and return it
-		if current == goal:
-			path = []
-			while current.parent:
-				path.append(current)
-				current = current.parent
-			path.append(current)
-			return path[::-1]
-		#Remove the item from the open set
-		openset.remove(current)
-		#Add it to the closed set
-		closedset.add(current)
+    #The open and closed sets
+    openset = set()
+    closedset = set()
+    #Current point is the starting point
+    current = start
+    #Add the starting point to the open set
+    openset.add(current)
+    #While the open set is not empty
+    while openset:
+        #Find the item in the open set with the lowest G + H score
+        current = min(openset, key=lambda o:o.G + o.H)
+        #If it is the item we want, retrace the path and return it
+        if current == goal:
+            path = []
+            while current.parent:
+                path.append(current)
+                current = current.parent
+            path.append(current)
+            return path[::-1]
+        #Remove the item from the open set
+        openset.remove(current)
+        #Add it to the closed set
+        closedset.add(current)
 
-		#Loop through the node's children/siblings
-		for node in children(current, grid):
-			#If it is already in the closed set, skip it
-			if node in closedset:
-				continue
+        #Loop through the node's children/siblings
+        for node in children(current, grid):
+            #If it is already in the closed set, skip it
+            if node in closedset:
+                continue
 
-			#Otherwise if it is already in the open set
-			if node in openset:
-				#Check if we beat the G score 
-				new_g = current.G + current.move_cost(node)
-				if node.G > new_g:
-					#If so, update the node to have a new parent
-					node.G = new_g
-					node.parent = current
+            #Otherwise if it is already in the open set
+            if node in openset:
+                #Check if we beat the G score 
+                new_g = current.G + current.move_cost(node)
+                if node.G > new_g:
+                    #If so, update the node to have a new parent
+                    node.G = new_g
+                    node.parent = current
 
-			else:
-				#If it isn't in the open set, calculate the G and H score for the node
-				node.G = current.G + current.move_cost(node)
-				node.H = manhattan(node, goal)
-				#Set the parent to our current item
-				node.parent = current
-				#Add it to the set
-				openset.add(node)
+            else:
+                #If it isn't in the open set, calculate the G and H score for the node
+                node.G = current.G + current.move_cost(node)
+                node.H = manhattan(node, goal)
+                #Set the parent to our current item
+                node.parent = current
+                #Add it to the set
+                openset.add(node)
 
-	#return empty list, as there is not path leading to destination
-	return []
+    #return empty list, as there is not path leading to destination
+    return []
 
 def next_move(pacman, food, environment):
-	grid = []
+    grid = []
 
-	#Convert all the points to instances of Node
-	for x in range(len(environment)):
+    #Convert all the points to instances of Node
+    for x in range(len(environment)):
 
-		row = []
-		for y in range(len(environment[x])):
-			row.append(Node(environment[x][y], (x,y)))
+        row = []
+        for y in range(len(environment[x])):
+            row.append(Node(environment[x][y], (x,y)))
 
-		grid.append(row)
+        grid.append(row)
             
-	#Get the path
-	path = aStar(grid[pacman[1]][pacman[0]], grid[food[1]][food[0]], grid)
-	return path
+    #Get the path
+    path = aStar(grid[pacman[1]][pacman[0]], grid[food[1]][food[0]], grid)
+    return path
 
 def direction_to_angle(direction):
-	_dict = {
-		'w': 0,
-		's': 180,
-		'a': 270,
-		'd': 90,
-		'dw': 45,
-		'aw': 315,
-		'ds': 135,
-		'as': 225,
-	}
+    _dict = {
+        'w': 0,
+        's': 180,
+        'a': 270,
+        'd': 90,
+        'dw': 45,
+        'aw': 315,
+        'ds': 135,
+        'as': 225,
+    }
 
-	return _dict[direction]
+    return _dict[direction]
 
 def angle_to_direction(angle):
-	_dict = {
-		0: 'w',
-		180: 's',
-		270: 'a',
-		90: 'd',
-		45: 'dw',
-		315: 'aw',
-		135: 'ds',
-		225: 'as',
-	}
+    _dict = {
+        0: 'w',
+        180: 's',
+        270: 'a',
+        90: 'd',
+        45: 'dw',
+        315: 'aw',
+        135: 'ds',
+        225: 'as',
+    }
 
-	return _dict[angle]
+    return _dict[angle]
 
 def points_to_segments(path):
-	segments = []
+    segments = []
 
-	new_segment = True
-	direction = None
-	previous_segment = None
+    new_segment = True
+    direction = None
+    previous_segment = None
 
-	for i in range(len(path)):
+    for i in range(len(path)):
 
-		current_point = path[i].point		
-		if (i == len(path) - 1):
-			end = current_point
-			segments.append(Segment(moving_direction, moving_direction, start, end))
+        current_point = path[i].point        
+        if (i == len(path) - 1):
+            end = current_point
+            segments.append(Segment(moving_direction, moving_direction, start, end))
 
-			break
+            break
 
-		next_point = path[i + 1].point
-		if (current_point[0] == next_point[0] and current_point[1] < next_point[1]):
-			direction = 'd' # turn right
-		elif (current_point[0] == next_point[0] and current_point[1] > next_point[1]):
-			direction = 'a' # turn left
-		elif (current_point[0] > next_point[0] and current_point[1] == next_point[1]):
-			direction = 'w' # forward
-		elif (current_point[0] < next_point[0] and current_point[1] == next_point[1]):
-			direction = 's' # backward
-		elif (current_point[0] > next_point[0] and current_point[1] < next_point[1]):
-			direction = 'dw' # turn 45 degree right
-		elif (current_point[0] > next_point[0] and current_point[1] > next_point[1]):
-			direction = 'aw' # turn 45 degree left
-		elif (current_point[0] < next_point[0] and current_point[1] < next_point[1]):
-			direction = 'ds' # turn 135 degree right
-		elif (current_point[0] < next_point[0] and current_point[1] > next_point[1]):
-			direction = 'as' # turn 135 degree left
+        next_point = path[i + 1].point
+        if (current_point[0] == next_point[0] and current_point[1] < next_point[1]):
+            direction = 'd' # turn right
+        elif (current_point[0] == next_point[0] and current_point[1] > next_point[1]):
+            direction = 'a' # turn left
+        elif (current_point[0] > next_point[0] and current_point[1] == next_point[1]):
+            direction = 'w' # forward
+        elif (current_point[0] < next_point[0] and current_point[1] == next_point[1]):
+            direction = 's' # backward
+        elif (current_point[0] > next_point[0] and current_point[1] < next_point[1]):
+            direction = 'dw' # turn 45 degree right
+        elif (current_point[0] > next_point[0] and current_point[1] > next_point[1]):
+            direction = 'aw' # turn 45 degree left
+        elif (current_point[0] < next_point[0] and current_point[1] < next_point[1]):
+            direction = 'ds' # turn 135 degree right
+        elif (current_point[0] < next_point[0] and current_point[1] > next_point[1]):
+            direction = 'as' # turn 135 degree left
 
-		if (new_segment):
-			start = current_point
-			moving_direction = direction
+        if (new_segment):
+            start = current_point
+            moving_direction = direction
 
-			new_segment = False
-			continue
+            new_segment = False
+            continue
 
-		if (moving_direction != direction):
-			end = current_point
-			if (previous_segment == None):
-				relative_moving_direction = moving_direction
-			else:
-				previous_angle = direction_to_angle(previous_segment.direction)
-				angle = direction_to_angle(moving_direction)
+        if (moving_direction != direction):
+            end = current_point
+            if (previous_segment == None):
+                relative_moving_direction = moving_direction
+            else:
+                previous_angle = direction_to_angle(previous_segment.direction)
+                angle = direction_to_angle(moving_direction)
 
-				relative_moving_angle = angle - previous_angle
-				if (relative_moving_angle < 0):
-					relative_moving_angle = 360 + relative_moving_angle
+                relative_moving_angle = angle - previous_angle
+                if (relative_moving_angle < 0):
+                    relative_moving_angle = 360 + relative_moving_angle
 
-				relative_moving_direction = angle_to_direction(relative_moving_angle)
+                relative_moving_direction = angle_to_direction(relative_moving_angle)
 
-			segment = Segment(moving_direction, relative_moving_direction, start, end)
-			segments.append(segment)
-			previous_segment = segment
+            segment = Segment(moving_direction, relative_moving_direction, start, end)
+            segments.append(segment)
+            previous_segment = segment
 
-			new_segment = True
-			continue
+            new_segment = True
+            continue
 
-	return segments
+    return segments
 
 def move(direction, distance, speed):
     print("Move in", direction, "direction for", distance, "cm.")
@@ -328,12 +328,12 @@ def simple_navigate():
         i += 1
 
 def pad_points(environment, x, y, padding):
-	row_limit = environment.shape[0]
-	col_limit = environment.shape[1]
+    row_limit = environment.shape[0]
+    col_limit = environment.shape[1]
 
-	for i in range(max(0, y - padding), min(y + padding, row_limit)):
-		for j in range(max(0, x -padding), min(x + padding, col_limit)):
-			environment[i][j] = 0
+    for i in range(max(0, y - padding), min(y + padding, row_limit)):
+        for j in range(max(0, x -padding), min(x + padding, col_limit)):
+            environment[i][j] = 0
 
 def map_environment():
     environment_size = 100
