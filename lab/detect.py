@@ -135,7 +135,7 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         image = Image.open(stream).convert('RGB').resize(
           (input_width, input_height), Image.ANTIALIAS)
 
-        m_image = np.array(pil_image)
+        m_image = np.array(image)
         m_image = m_image[:, :, ::-1].copy()
 
         start_time = time.monotonic()
