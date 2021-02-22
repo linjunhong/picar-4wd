@@ -20,6 +20,7 @@ from __future__ import division
 from __future__ import print_function
 
 import argparse
+import cv2
 import io
 import re
 import time
