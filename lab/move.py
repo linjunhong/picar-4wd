@@ -405,7 +405,7 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
     speed.start()
 
     ninty = turn_power
-    forty_five = int(turn_power / 2)
+    forty_five = int(turn_power * 2 / 3 )
     one_three_five = ninty + forty_five
     
     for segment in segments:
