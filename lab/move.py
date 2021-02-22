@@ -40,7 +40,7 @@ class Node (object):
         self.G = 0
 
     def move_cost(self, other):
-        elif (self.value == 255):
+        if (self.value == 255):
             cost = abs(self.point[0] - other.point[0]) + abs(self.point[1] - other.point[1])
             return cost * 2 * cost * 2
              
