@@ -338,7 +338,7 @@ def map_environment():
     x_offset = environment_size / 2
     environment = np.full((environment_size, environment_size), 255)
 
-    for angle in range(70, -70, -5):
+    for angle in range(60, -60, -10):
         
         distance_1 = fc.get_distance_at(angle)
         distance_2 = fc.get_distance_at(angle)
