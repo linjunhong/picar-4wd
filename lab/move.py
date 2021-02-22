@@ -439,6 +439,11 @@ def main(argv):
         elif opt == "-r":
             parameter3 = arg
 
+    print(command)
+    print(paramter1)
+    print(paramter2)
+    print(paramter3)
+
     if (command == "navigate"):
         simple_navigate()
     elif (command == "map_environment"):
