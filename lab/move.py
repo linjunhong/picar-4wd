@@ -39,7 +39,7 @@ class Node (object):
 		self.H = 0
 		self.G = 0
 
-	def move_cost(self, other):
+    def move_cost(self, other):
         if (other.point[0] == 0 or other.point[0] == 99 or other.point[1] == 0 or other.point[1] == 99):
             return 255
             
