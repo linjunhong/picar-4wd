@@ -5,7 +5,7 @@ import math
 import time
 import numpy as np
 
-import detect
+import detect.py
 import picar_4wd as fc
 from picar_4wd.pwm import PWM
 from picar_4wd.adc import ADC
