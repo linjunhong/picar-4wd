@@ -283,7 +283,7 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         elapsed_seconds = (time.monotonic() - start_time)
 
         print("Elapsed time (ms): ", elapsed_seconds * 1000)
-        # print_object_labels(results, labels)
+        print_object_labels(results, labels)
 
         distance_travelled += speed() * elapsed_seconds
 
