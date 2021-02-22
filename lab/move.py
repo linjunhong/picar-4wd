@@ -250,7 +250,7 @@ def move(direction, distance, speed):
 
     fc.stop()
 
-def move_and_detect(direction, distance, speed, camera, input_height, input_width, interpreter, threshold):
+def move_and_detect(direction, distance, speed, camera, input_height, input_width, interpreter, labels, threshold):
     print("Move in", direction, "direction for", distance, "cm.")
 
     distance_travelled = 0
@@ -404,19 +404,19 @@ def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
 
             if (d1 == 'a'):
                 move('a', angle, speed)
-                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
+                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, labels, 0.4)
             elif (d1 == 'd'):
                 move('d', angle, speed)
-                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
+                move_and_detect(d2, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, labels, 0.4)
 
         elif (d1 == 'a'):
             move('a', ninty, speed)
-            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
+            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, labels, 0.4)
         elif (d1 == 'd'):
             move('d', ninty, speed)
-            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
+            move_and_detect('w', segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, labels, 0.4)
         else:
-            move_and_detect(segment.relative_direction, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, 0.4)
+            move_and_detect(segment.relative_direction, segment.get_distance() - compensate, speed, camera, input_height, input_width, interpreter, labels, 0.4)
 
     speed.deinit()
 
