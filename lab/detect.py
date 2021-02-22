@@ -122,7 +122,7 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
     if (preview):
       camera.start_preview()
 
-    vid = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0)
 
     try:
       stream = io.BytesIO()
