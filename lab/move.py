@@ -324,8 +324,8 @@ def simple_navigate():
         i += 1
 
 def pad_points(environment, x, y, padding):
-	row_limit = environment.shape[0]
-	col_limit = environment.shape[1]
+	row_limit = environment.shape[0] + 1
+	col_limit = environment.shape[1] + 1
 
 	for i in range(max(0, y - padding), min(y + padding, row_limit)):
 		for j in range(max(0, x -padding), min(x + padding, col_limit)):
