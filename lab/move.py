@@ -277,6 +277,7 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
             print("Stop sign detected")
         if (stop_sign_detected and not saw_stop_sign):
             stop = True
+            stop_sign_detected = False
         elif (not stop_sign_detected and saw_stop_sign):
             stop_sign_detected = True
             
