@@ -41,14 +41,14 @@ class Node (object):
 
     def move_cost(self, other):
         if (other.point[0] == 0 or other.point[0] == 99 or other.point[1] == 0 or other.point[1] == 99):
-            return 255
+            return 0
             
         elif (self.value == 255):
             cost = abs(self.point[0] - other.point[0]) + abs(self.point[1] - other.point[1])
             return cost * 2 * cost * 2
              
         else:
-            return 255
+            return 0
 
 def children(point,grid):
     x,y = point.point
