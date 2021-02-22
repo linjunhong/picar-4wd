@@ -118,7 +118,7 @@ def start_camera():
 def close_camera(camera):
   camera.close()
 
-def capture_frame(camera):
+def capture_frame(camera, input_height, input_width):
   stream = io.BytesIO()
   for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
     stream.seek(0)
@@ -137,7 +137,7 @@ def detect_new(arg_labels, arg_interpreter, arg_threshold, preview):
 
   camera = start_camera()
   try:
-    image = capture_frame(camera)
+    image = capture_frame(camera, input_height, input_width)
     
     start_time = time.monotonic()
     results = detect_objects(interpreter, image, arg_threshold)
