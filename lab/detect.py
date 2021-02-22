@@ -120,11 +120,11 @@ def close_camera(camera):
 
 def capture_frame(camera):
   stream = io.BytesIO()
-  camera.capture_continuous(stream, format='jpeg', use_video_port=True)
-  stream.seek(0)
-  image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
-  stream.seek(0)
-  stream.truncate()
+  for _ in camera.capture_continuous(stream, format='jpeg', use_video_port=True):
+    stream.seek(0)
+    image = Image.open(stream).convert('RGB').resize((input_width, input_height), Image.ANTIALIAS)
+    stream.seek(0)
+    stream.truncate()
 
   return image
 
