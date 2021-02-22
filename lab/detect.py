@@ -135,9 +135,9 @@ def detect(arg_labels, arg_interpreter, arg_threshold, preview):
         stream.seek(0)
         
         image = Image.open(stream).convert('RGB').resize(
-          (input_width, input_height), Image.ANTIALIAS)
+          (input_width/2, input_height/2), Image.ANTIALIAS)
           
-        m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
+        #m_image = cv2.resize(image, (0,0), fx = 0.2, fy = 0.2, interpolation=cv2.INTER_NEAREST)
 
         start_time = time.monotonic()
         results = detect_objects(interpreter, m_image, arg_threshold)
