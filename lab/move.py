@@ -245,9 +245,6 @@ def move(direction, distance, speed):
         time.sleep(0.1)
         distance_travelled += speed() * 0.1
 
-        if (detection_enabled):
-            detect("./tmp/detect.tflite", "./tmp/coco_labels.txt", 0.4, False)
-
     fc.stop()
 
 def move_and_detect(direction, distance, speed, camera, input_height, input_width, interpreter, labels, threshold):
@@ -272,7 +269,7 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         start_time = time.monotonic()
         image = capture_frame(camera, input_height, input_width)
         results = detect_objects(interpreter, image, threshold)
-        elapsed_seconds = (time.monotonic() - start_time) * 1000
+        elapsed_seconds = (time.monotonic() - start_time)
 
         print("Elapsed time (ms): ", elapsed_seconds * 1000)
         print_object_labels(results, labels)
