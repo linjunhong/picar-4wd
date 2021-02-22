@@ -267,10 +267,10 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         return
 
     stop_sign_detected = False
+    stopped = False
     while distance_travelled < distance:
 
         stop = False
-        stopped = False
         start_time = time.monotonic()
         image = capture_frame(camera, input_height, input_width)
         results = detect_objects(interpreter, image, threshold)
