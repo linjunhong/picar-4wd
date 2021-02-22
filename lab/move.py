@@ -16,7 +16,7 @@ from picar_4wd.speed import Speed
 from picar_4wd.filedb import FileDB  
 from picar_4wd.utils import *
 
-import detect import *
+from detect import *
 
 class Segment (object):
 	def __init__(self, direction, relative_direction, start, end):
