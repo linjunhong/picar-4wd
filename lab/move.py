@@ -40,9 +40,11 @@ class Node (object):
 		self.G = 0
 
 	def move_cost(self, other):
-		if (self.value == 255):
+        if (other.point[0] == 0 or other.point[0] == 99 or other.point[1] == 0 or other.point[1] == 99):
+            return 255
+		elif (self.value == 255):
 			cost = abs(self.point[0] - other.point[0]) + abs(self.point[1] - other.point[1])
-			return cost * 100
+			return cost * 2 * cost * 2
 		else:
 			return 255
 
@@ -324,8 +326,8 @@ def simple_navigate():
         i += 1
 
 def pad_points(environment, x, y, padding):
-	row_limit = environment.shape[0] + 1
-	col_limit = environment.shape[1] + 1
+	row_limit = environment.shape[0]
+	col_limit = environment.shape[1]
 
 	for i in range(max(0, y - padding), min(y + padding, row_limit)):
 		for j in range(max(0, x -padding), min(x + padding, col_limit)):
