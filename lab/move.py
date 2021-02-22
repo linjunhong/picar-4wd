@@ -356,6 +356,7 @@ def map_environment():
     return environment
 
 def advanced_mapping_and_navigate(dest_x, dest_y, compensate, turn_power):
+    print("advance_navigate")
     environment = map_environment()
     
     #object detection using PiCamera
