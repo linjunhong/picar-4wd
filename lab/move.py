@@ -286,6 +286,7 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         distance_travelled += speed() * elapsed_seconds
 
         if (stop):
+            print("Stop for 5s")
             fc_stop()
             time.sleep(5)
 
