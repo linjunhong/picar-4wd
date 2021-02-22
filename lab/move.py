@@ -272,7 +272,7 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
         image = capture_frame(camera, input_height, input_width)
         results = detect_objects(interpreter, image, threshold)
 
-        saw_stop_sign = "stop sign" in labels.values()
+        saw_stop_sign = "stop sign" in get_detected_object_labels(results, labels)
         if (saw_stop_sign):
             print("Stop sign detected")
         if (stop_sign_detected and not saw_stop_sign):

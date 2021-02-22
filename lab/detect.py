@@ -109,6 +109,13 @@ def print_object_labels(results, labels):
     for obj in results:
         print("classid:", obj['class_id'], "label:", labels[obj['class_id']], "scores:", obj['score'])
 
+def get_detected_object_labels(results, labels):
+  object_labels = []
+  for obj in result:
+    object_labels.append(labels[obj['class_id']])
+
+  return object_labels
+  
 def start_camera():
   camera = picamera.PiCamera(resolution=(CAMERA_WIDTH, CAMERA_HEIGHT), framerate=30)
   camera.rotation = 180
