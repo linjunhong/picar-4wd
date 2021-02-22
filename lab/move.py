@@ -279,9 +279,6 @@ def move_and_detect(direction, distance, speed, camera, input_height, input_widt
 
         distance_travelled += speed() * elapsed_seconds
 
-        if (detection_enabled):
-            detect("./tmp/detect.tflite", "./tmp/coco_labels.txt", 0.4, False)
-
     fc.stop()
 
 
