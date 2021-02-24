@@ -370,7 +370,7 @@ def map_environment():
                 detected_points.append((y, x))
 
     # add padding so that car can navigate
-    pad_points(environment, detected_points, 10)
+    pad_points(environment, detected_points, 5)
 
     # Reset servo
     fc.get_distance_at(0)
