@@ -330,7 +330,7 @@ def pad_points(environment, detected_points, padding):
     row_limit = environment.shape[0]
     col_limit = environment.shape[1]
 
-    for point in detect_points:
+    for point in detected_points:
         y = point[0]
         x = point[1]
         environment[y][x] = 0
