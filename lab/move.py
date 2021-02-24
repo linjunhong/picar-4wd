@@ -347,7 +347,7 @@ def map_environment():
 
     detected_points = []
     distance = 0
-    for angle in range(60, -60, -10):
+    for angle in range(70, -70, -5):
     
         distance_1 = fc.get_distance_at(angle)
         distance_2 = fc.get_distance_at(angle) 
