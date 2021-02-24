@@ -319,9 +319,6 @@ def simple_navigate():
             move('s', 15)
             print("Trun right")
             move('d', 20)
-            #print("Move forward")
-            #move('w', 30)
-            #should_continue = False
 
         elif (i > 10):
             print(dis_val, " cm from obstacle")
@@ -329,19 +326,26 @@ def simple_navigate():
         
         i += 1
 
-def pad_points(environment, x, y, padding):
+def pad_points(environment, detected_points, padding):
     row_limit = environment.shape[0]
     col_limit = environment.shape[1]
 
-    for i in range(max(0, y - padding), min(y + padding, row_limit)):
-        for j in range(max(0, x -padding), min(x + padding, col_limit)):
-            environment[i][j] = 0
+    for point in detect_objects:
+        y = point[0]
+        x = point[1]
+        environment[y][x] = 0
+
+        for i in range(max(0, y - padding), min(y + padding, row_limit)):
+            for j in range(max(0, x -padding), min(x + padding, col_limit)):
+                if ((i, j) not in detected_points):
+                    environment[i][j] = 128
 
 def map_environment():
     environment_size = 100
     x_offset = environment_size / 2
     environment = np.full((environment_size, environment_size), 255)
 
+    detected_points = []
     for angle in range(60, -60, -10):
         
         distance_1 = fc.get_distance_at(angle)
@@ -357,14 +361,10 @@ def map_environment():
 
             # make sure there is no point outside the environment
             if (x > 0 and x < environment_size and y > 0 and y < environment_size):
-                # print("angle: ", angle)
-                # print("distance: ", distance)
-                # print("X: ", x)
-                # print("Y: ", y)
-                environment[y, x] = 0
+                detected_points.append((y, x))
 
-                # add padding so that car can navigate
-                pad_points(environment, x, y, 10)
+    # add padding so that car can navigate
+    pad_points(environment, detected_points, 10)
 
     # Reset servo
     fc.get_distance_at(0)
@@ -458,11 +458,6 @@ def main(argv):
             parameter2 = arg
         elif opt == "-r":
             parameter3 = arg
-
-    print(command)
-    print(parameter1)
-    print(parameter2)
-    print(parameter3)
 
     if (command == "navigate"):
         simple_navigate()
