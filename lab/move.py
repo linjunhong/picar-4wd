@@ -347,11 +347,16 @@ def map_environment():
 
     detected_points = []
     for angle in range(60, -60, -10):
-        
-        distance_1 = fc.get_distance_at(angle)
-        distance_2 = fc.get_distance_at(angle)
-        distance = (distance_1 + distance_2) / 2
-
+    
+        sum = 0
+        count = 0
+        while count < 2:
+            distance = fc.get_distance_at(angle)
+            if (distance > 0):
+                sum += distance
+                count += 1
+                
+        distance = sum / count
         if (distance != -2 and distance <= 100):
             theta = math.radians(angle)
             
