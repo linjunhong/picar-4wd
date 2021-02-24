@@ -352,6 +352,7 @@ def map_environment():
         count = 0
         while count < 2:
             distance = fc.get_distance_at(angle)
+            print("distance:", distance)
             if (distance > 0):
                 sum += distance
                 count += 1
