@@ -34,18 +34,18 @@ def start():
         wifi_client, wifi_client_info = wifi_socket.accept()
         print("[wifi] server received from:", wifi_client_info)
 
-        bt_client, bt_clientInfo = s.accept()
+        bt_client, bt_clientInfo = bt_socket.accept()
         print("[bt] server received from:", bt_clientInfo)
 
         while 1:
             data = wifi_client.recv(1024)
             if (data != b""):
-                print("Receive data from wifi:", data)
+                print("[wifi]", data)
                 wifi_client.sendall(data)
 
             data = bt_client.recv(1024)
             if data:
-                print(data)
+                print("[bt]", data)
                 client.send(data)
 
     except:
