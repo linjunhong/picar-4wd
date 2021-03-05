@@ -28,7 +28,7 @@ def start():
             print("server received from:", wifi_client_info)
             data = wifi_client.recv(1024)
             if (data != b""):
-                print("data)
+                print(data)
                 wifi_client.sendall(data)
 
     except:
