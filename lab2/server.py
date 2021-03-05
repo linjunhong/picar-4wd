@@ -4,6 +4,8 @@ import socket
 import sys
 import threading
 
+from picar import *
+
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI
     PORT = 65432          # Port to listen on (non-privileged ports are > 1023)
@@ -18,7 +20,8 @@ def listening_wifi():
                 print("[wifi] server recv from: ", clientInfo)
                 data = client.recv(1024)      # receive 1024 Bytes of message in binary format
                 if data != b"":
-                    print("[wifi] data:", data)     
+                    print("[wifi] data:", data)
+                    move(data, 10)
                     client.sendall(data) # Echo back to client
         except: 
             print("[wifi] Closing socket")
@@ -41,13 +44,12 @@ def listening_bt():
             data = client.recv(size)
             if data:
                 print("[bt] data:", data)
+                move(data, 10)
                 client.send(data) # Echo back to client
     except: 
         print("Closing socket")
         client.close()
         s.close()
-
-
 
 def start():
     wifi_thread = threading.Thread(target=listening_wifi, daemon=True)
