@@ -53,7 +53,7 @@ def start():
     wifi_thread = threading.Thread(target=listening_wifi, daemon=True)
     wifi_thread.start()
     bt_thread = threading.Thread(target=listening_bt, daemon=True)
-    bt_thread()
+    bt_thread.start()
 
     wifi_thread.join()
     bt_thread.join()
