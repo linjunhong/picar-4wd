@@ -3,7 +3,7 @@ import socket
 import sys
 
 def get_wifi_socket():
-    HOST = "192.168..1.110" # IP address of your Raspberry PI
+    HOST = "192.168.1.110" # IP address of your Raspberry PI
     PORT = 65432            # Port to listen on (non-privileged ports are > 1023)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
