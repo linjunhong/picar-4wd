@@ -16,9 +16,10 @@ def start():
     wifi_socket = get_wifi_socket()
 
     try:
+        wifi_client, wifi_client_info = wifi_socket.accept()
+        
         while 1:
             print("new cycle")
-            wifi_client, wifi_client_info = wifi_socket.accept()
             print("server received from:", wifi_client_info)
             data = wifi_client.recv(1024)
             if (data != b""):
