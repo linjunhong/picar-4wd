@@ -17,12 +17,14 @@ def start():
 
     try:
         while 1:
+            print("new cycle")
             wifi_client, wifi_client_info = wifi_socket.accept()
             print("server received from:", wifi_client_info)
             data = wifi_client.recv(1024)
             if (data != b""):
                 print(data)
                 wifi_client.sendall(data)
+                print("end")
 
     except:
         print("Closing server")
