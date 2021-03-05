@@ -17,13 +17,13 @@ def move(direction, distance):
 
     distance_travelled = 0
 
-    if direction == 'w':
+    if direction == b'w':
         fc.forward(10)
-    elif direction == 'a':
+    elif direction == b'a':
         fc.turn_left(10)
-    elif direction == 's':
+    elif direction == b's':
         fc.backward(10)
-    elif direction == 'd':
+    elif direction == b'd':
         fc.turn_right(10)
     else:
         fc.stop()
