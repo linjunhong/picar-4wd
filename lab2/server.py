@@ -3,57 +3,59 @@ import getopt
 import socket
 import sys
 
-def get_wifi_socket():
-    HOST = "192.168.1.110" # IP address of your Raspberry PI
-    PORT = 65432            # Port to listen on (non-privileged ports are > 1023)
+def listening_wifi():
+    HOST = "192.168.3.49" # IP address of your Raspberry PI
+    PORT = 65432          # Port to listen on (non-privileged ports are > 1023)
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((HOST, PORT))
-    s.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST, PORT))
+        s.listen()
 
-    return s
+        try:
+            client, clientInfo = s.accept()
+            while 1:
+                print("[wifi] server recv from: ", clientInfo)
+                data = client.recv(1024)      # receive 1024 Bytes of message in binary format
+                if data != b"":
+                    print("[wifi] data:", data)     
+                    client.sendall(data) # Echo back to client
+        except: 
+            print("[wifi] Closing socket")
+            client.close()
+            s.close()    
 
-def get_bluetooth_socket():
+def listening_bt():
     hostMACAddress = "DC:A6:32:C7:72:C6" # The address of Raspberry PI Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
     port = 0
     backlog = 1
     size = 1024
     s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     s.bind((hostMACAddress, port))
-    print("listening on port ", port)
+    s.listen(backlog)
+    print("[bt] listening on port ", port)
+    try:
+        client, clientInfo = s.accept()
+        while 1:   
+            print("[bt] server recv from: ", clientInfo)
+            data = client.recv(size)
+            if data:
+                print("[bt] data:", data)
+                client.send(data) # Echo back to client
+    except: 
+        print("Closing socket")
+        client.close()
+        s.close()
 
-    return s
 
 
 def start():
-    wifi_socket = get_wifi_socket()
-    bt_socket = get_bluetooth_socket()
-    bt_socket.listen(1)
+    wifi_thread = threading.Thread(target=listening_wifi, daemon=True)
+    wifi_thread.start()
+    bt_thread = threading.Thread(target=listening_bt, daemon=True)
+    bt_thread()
 
-    try:
-        wifi_client, wifi_client_info = wifi_socket.accept()
-        print("[wifi] server received from:", wifi_client_info)
-
-        bt_client, bt_clientInfo = bt_socket.accept()
-        print("[bt] server received from:", bt_clientInfo)
-
-        while 1:
-            data = wifi_client.recv(1024)
-            if (data != b""):
-                print("[wifi]", data)
-                wifi_client.sendall(data)
-
-            data = bt_client.recv(1024)
-            if data:
-                print("[bt]", data)
-                client.send(data)
-
-    except:
-        print("Closing server")
-        wifi_client.close()
-        wifi_socket.close()
-        bt_client.close()
-        bt_socket.close()
+    wifi_thread.join()
+    bt_thread.join()
 
     return
 
