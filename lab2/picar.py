@@ -1,3 +1,4 @@
+import json
 import picar_4wd as fc
 from picar_4wd.pwm import PWM
 from picar_4wd.adc import ADC
@@ -8,6 +9,21 @@ from picar_4wd.ultrasonic import Ultrasonic
 from picar_4wd.speed import Speed
 from picar_4wd.filedb import FileDB  
 from picar_4wd.utils import *
+
+from datetime import datetime
+
+def get_data():
+    temperature = datetime.now()
+    speed = datetime.now()
+    distance = datetime.now()
+
+    data = {
+        'temperature': temperature,
+        'speed': speed,
+        'distance': distance,
+    }
+
+    return json.dumps(data)
 
 def move(direction, distance):
     speed = Speed(25)

@@ -1,5 +1,6 @@
 import bluetooth
 import getopt
+import json
 import socket
 import sys
 import threading
@@ -7,12 +8,12 @@ import threading
 from picar import *
 
 def process_data(data, echo):
-    if (data == 'get_data'):
-        print('get_data')
+    if (data == b'get_data'):
+        json = get_data()
+        echo(json)
     else:
         move(data, 10)
-
-    echo(data)
+        echo(data)
 
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI
