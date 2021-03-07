@@ -42,13 +42,13 @@ def move(direction, distance):
     elif direction == b'd':
         fc.turn_right(10)
     else:
-        fc.stop()
         return
 
     while distance_travelled < distance:
         time.sleep(0.1)
         distance_travelled += speed() * 0.1
 
-    fc.stop()
-
     speed.deinit()
+
+def stop():
+    fc.stop()

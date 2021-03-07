@@ -11,9 +11,10 @@ def process_data(data, echo):
     if (data == b'get_data'):
         json = get_data()
         echo(json)
+    elif (data == b'stop'):
+        stop()
     else:
         move(data, 10)
-        echo(data)
 
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI
