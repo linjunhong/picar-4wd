@@ -22,7 +22,7 @@ def process_data(data, echo):
         elif (data == b'u'):
             stop()
         else:
-            move(data, 10)
+            move(data)
 
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI

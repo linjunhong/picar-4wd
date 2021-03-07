@@ -25,14 +25,7 @@ def get_data():
 
     return bytes(json.dumps(data), 'utf-8')
 
-def move(direction, distance):
-    speed = Speed(25)
-    speed.start()
-
-    print("Move in", direction, "direction for", distance, "cm.")
-
-    distance_travelled = 0
-
+def move(direction):
     if direction == b'w':
         fc.forward(10)
     elif direction == b'a':
@@ -41,14 +34,6 @@ def move(direction, distance):
         fc.backward(10)
     elif direction == b'd':
         fc.turn_right(10)
-    else:
-        return
-
-    while distance_travelled < distance:
-        time.sleep(0.1)
-        distance_travelled += speed() * 0.1
-
-    speed.deinit()
 
 def stop():
     fc.stop()
