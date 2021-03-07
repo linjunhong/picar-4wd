@@ -32,8 +32,8 @@ def listening_wifi():
                     print("[wifi] process data:", data)
                     process_data(data, client.sendall)
 
-        except: 
-            print("[wifi] Closing socket")
+        except Exception as e: 
+            print("[wifi] Encounter error:", e, "Closing socket")
             client.close()
             s.close()    
 
@@ -55,8 +55,8 @@ def listening_bt():
                 print("[bt]  processdata:", data)
                 process_data(data, client.send)
 
-    except: 
-        print("Closing socket")
+    except Exception as e: 
+        print("[bt] Encounter error:", e, "Closing socket")
         client.close()
         s.close()
 
