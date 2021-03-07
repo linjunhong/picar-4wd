@@ -7,14 +7,22 @@ import threading
 
 from picar import *
 
+# u - stop
+# j - get data
+# w - move forward
+# s - move backward
+# a - turn left
+# d - turn right
+
 def process_data(data, echo):
-    if (data == b'get_data'):
-        json = get_data()
-        echo(json)
-    elif (data == b'stop'):
-        stop()
-    else:
-        move(data, 10)
+    for c in data:
+        if (data == b'j'):
+            json = get_data()
+            echo(json)
+        elif (data == b'u'):
+            stop()
+        else:
+            move(data, 10)
 
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI
