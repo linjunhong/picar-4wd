@@ -13,9 +13,9 @@ from picar_4wd.utils import *
 from datetime import datetime
 
 def get_data():
-    temperature = datetime.now()
-    speed = datetime.now()
-    distance = datetime.now()
+    temperature = datetime.now().isoformat()
+    speed = datetime.now().isoformat()
+    distance = datetime.now().isoformat()
 
     data = {
         'temperature': temperature,
