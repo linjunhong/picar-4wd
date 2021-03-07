@@ -8,6 +8,7 @@ from picar import *
 
 def process_data(data, echo):
     if (data == 'get_data'):
+        print('get_data')
     else:
         move(data, 10)
 
@@ -29,7 +30,7 @@ def listening_wifi():
                 if data != b"":
                     print("[wifi] process data:", data)
                     process_data(data, client.sendall)
-                    
+
         except: 
             print("[wifi] Closing socket")
             client.close()
