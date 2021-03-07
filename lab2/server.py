@@ -6,6 +6,13 @@ import threading
 
 from picar import *
 
+def process_data(data, echo):
+    if (data == 'get_data'):
+    else:
+        move(data, 10)
+
+    echo(data)
+
 def listening_wifi():
     HOST = "192.168.1.110" # IP address of your Raspberry PI
     PORT = 65432          # Port to listen on (non-privileged ports are > 1023)
@@ -20,9 +27,9 @@ def listening_wifi():
                 print("[wifi] server recv from: ", clientInfo)
                 data = client.recv(1024)      # receive 1024 Bytes of message in binary format
                 if data != b"":
-                    print("[wifi] data:", data)
-                    move(data, 10)
-                    client.sendall(data) # Echo back to client
+                    print("[wifi] process data:", data)
+                    process_data(data, client.sendall)
+                    
         except: 
             print("[wifi] Closing socket")
             client.close()
@@ -43,9 +50,9 @@ def listening_bt():
             print("[bt] server recv from: ", clientInfo)
             data = client.recv(size)
             if data:
-                print("[bt] data:", data)
-                move(data, 10)
-                client.send(data) # Echo back to client
+                print("[bt]  processdata:", data)
+                process_data(data, client.send)
+
     except: 
         print("Closing socket")
         client.close()
