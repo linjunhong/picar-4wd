@@ -13,14 +13,12 @@ from picar_4wd.utils import *
 from datetime import datetime
 
 def get_data():
-    temperature = datetime.now().isoformat()
-    speed = datetime.now().isoformat()
-    distance = datetime.now().isoformat()
+    temperature = cpu_temperature()
+    power = power_read()
 
     data = {
         'temperature': temperature,
-        'speed': speed,
-        'distance': distance,
+        'power': power,
     }
 
     return bytes(json.dumps(data), 'utf-8')
