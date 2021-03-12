@@ -58,10 +58,10 @@ def listening_bt():
     try:
         client, clientInfo = s.accept()
         while 1:   
-            print("[bt] Waiting message from: ", clientInfo)
+            print("[bt] Waiting message from:", clientInfo)
             data = client.recv(size)
             if data:
-                print("[bt]  Received:", data)
+                print("[bt] Received:", data)
                 client.send("Currrent system time is: " + datetime.now().isoformat())
 
     except Exception as e: 
