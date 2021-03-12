@@ -63,6 +63,7 @@ def listening_bt():
             if data:
                 print("[bt] Received:", data)
                 client.send("Currrent system time is: " + datetime.now().isoformat())
+                print("[bt] Message sent.")
 
     except Exception as e: 
         print("[bt] Encounter error:", e, "Closing socket")
