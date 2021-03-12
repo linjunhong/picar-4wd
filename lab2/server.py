@@ -54,15 +54,15 @@ def listening_bt():
     s = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     s.bind((hostMACAddress, port))
     s.listen(backlog)
-    print("[bt] listening on port ", port)
+    print("[bt] listening on port ", port,". Waiting for connection.")
     try:
         client, clientInfo = s.accept()
         while 1:   
             print("[bt] server recv from: ", clientInfo)
             data = client.recv(size)
             if data:
-                print("[bt]  processdata:", data)
-                process_data(data, client.send)
+                print("[bt]  Received:", data)
+                client.send("Currrent system is: " + datetime.now().isoformat())
 
     except Exception as e: 
         print("[bt] Encounter error:", e, "Closing socket")
