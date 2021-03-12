@@ -58,11 +58,11 @@ def listening_bt():
     try:
         client, clientInfo = s.accept()
         while 1:   
-            print("[bt] server recv from: ", clientInfo)
+            print("[bt] Waiting message from: ", clientInfo)
             data = client.recv(size)
             if data:
                 print("[bt]  Received:", data)
-                client.send("Currrent system is: " + datetime.now().isoformat())
+                client.send("Currrent system time is: " + datetime.now().isoformat())
 
     except Exception as e: 
         print("[bt] Encounter error:", e, "Closing socket")
